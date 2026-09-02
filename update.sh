@@ -1193,13 +1193,17 @@ update_x-ui() {
     config_after_update
 
     installed_xui_version=$(${xui_folder}/x-ui -v 2> /dev/null | tr -d '[:space:]' || true)
-    expected_xui_version="${tag_version#v}"
+    expected_xui_version=""
+    if [[ -f "${xui_folder}/RELEASE_VERSION" ]]; then
+        expected_xui_version=$(tr -d '[:space:]' < "${xui_folder}/RELEASE_VERSION")
+    fi
+    [[ -n "${expected_xui_version}" ]] || expected_xui_version="${tag_version#v}"
     installed_xui_version="${installed_xui_version#v}"
     if [[ -z "${installed_xui_version}" || "${installed_xui_version}" != "${expected_xui_version}" ]]; then
         _fail "ERROR: Installed bettercallakbar version verification failed. expected=${expected_xui_version}, got=${installed_xui_version:-unknown}"
     fi
 
-    echo -e "${green}x-ui ${tag_version}${plain} updating finished, it is running now..."
+    echo -e "${green}bettercallakbar ${installed_xui_version} updated from release tag ${tag_version}; it is running now...${plain}"
     echo -e ""
     echo -e "┌───────────────────────────────────────────────────────┐
 │  ${blue}x-ui control menu usages (subcommands):${plain}              │

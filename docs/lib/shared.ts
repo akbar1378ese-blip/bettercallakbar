@@ -26,8 +26,8 @@ export const productRepoUrl = `https://github.com/${productRepo.user}/${productR
 // AI-generated interactive view of the bettercallakbar codebase.
 export const deepWikiUrl = `https://deepwiki.com/${productRepo.user}/${productRepo.repo}`;
 
-// Upstream 3x-ui community channel on Telegram.
-export const telegramChannel = 'XrayUI';
+// Official bettercallakbar channel on Telegram.
+export const telegramChannel = 'bettercallakbar';
 export const telegramChannelUrl = `https://t.me/${telegramChannel}`;
 
 // Support the developer — donation page with funding goals/targets.

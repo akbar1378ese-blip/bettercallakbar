@@ -139,7 +139,7 @@ export default function IndexPage() {
   }
 
   function openTelegram() {
-    window.open('https://t.me/bettercallakbarStudio', '_blank', 'noopener,noreferrer');
+    window.open('https://t.me/bettercallakbar', '_blank', 'noopener,noreferrer');
   }
 
   async function openConfig() {
@@ -248,12 +248,12 @@ export default function IndexPage() {
                           key="tg"
                           role="button"
                           tabIndex={0}
-                          aria-label="@bettercallakbarStudio"
+                          aria-label="@bettercallakbar"
                           onClick={openTelegram}
                           onKeyDown={activateOnKey(openTelegram)}
                         >
                           <TelegramFilled className="tg-icon" aria-hidden="true" />
-                          {!isMobile && <span>@bettercallakbarStudio</span>}
+                          {!isMobile && <span>@bettercallakbar</span>}
                         </Space>,
                         <Space
                           key="panel-version"

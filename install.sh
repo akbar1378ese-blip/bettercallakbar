@@ -1433,10 +1433,10 @@ install_x-ui() {
             echo -e "${yellow}Installing the rolling dev build (tag: dev-latest). This is a per-commit pre-release, not a stable version.${plain}"
         else
             tag_version_numeric=${tag_version#v}
-            min_version="2.3.5"
+            min_version="1.5.3"
 
             if [[ "$(printf '%s\n' "$min_version" "$tag_version_numeric" | sort -V | head -n1)" != "$min_version" ]]; then
-                echo -e "${red}Please use a newer version (at least v2.3.5). Exiting installation.${plain}"
+                echo -e "${red}Please use a newer version (at least v1.5.3). Exiting installation.${plain}"
                 exit 1
             fi
         fi
@@ -1552,6 +1552,12 @@ install_x-ui() {
     mkdir -p /var/log/x-ui
     config_after_install
 
+    installed_xui_version=$(${xui_folder}/x-ui -v 2> /dev/null | tr -d '[:space:]' || true)
+    if [[ -z "${installed_xui_version}" ]]; then
+        echo -e "${red}Could not verify the installed bettercallakbar version.${plain}"
+        exit 1
+    fi
+
     # Etckeeper compatibility
     if [ -d "/etc/.git" ]; then
         if [ -f "/etc/.gitignore" ]; then
@@ -1664,7 +1670,7 @@ install_x-ui() {
         fi
     fi
 
-    echo -e "${green}x-ui ${tag_version}${plain} installation finished, it is running now..."
+    echo -e "${green}bettercallakbar ${installed_xui_version} installed from release tag ${tag_version}; it is running now...${plain}"
     echo -e ""
     echo -e "┌───────────────────────────────────────────────────────┐
 │  ${blue}x-ui control menu usages (subcommands):${plain}              │
