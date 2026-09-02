@@ -8,7 +8,7 @@ yellow='\033[0;33m'
 blue='\033[0;34m'
 plain='\033[0m'
 
-### HEIMDALL UI HELPERS ###
+### bettercallakbar UI HELPERS ###
 ui_rule() {
     local width="${YUI_BOX_WIDTH:-44}"
     local line=""
@@ -70,7 +70,7 @@ ui_item() {
     printf '  [38;5;%sm%s)[0m %s
 ' "$color" "$num" "$label"
 }
-### END HEIMDALL UI HELPERS ###
+### END bettercallakbar UI HELPERS ###
 
 
 clear_screen() {

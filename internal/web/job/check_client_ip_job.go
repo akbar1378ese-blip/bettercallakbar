@@ -22,7 +22,7 @@ type IPWithTimestamp struct {
 
 // CheckClientIpJob records online client IP observations for panel display
 // and cross-node attribution. Simultaneous-IP enforcement remains entirely
-// inside Heimdall's custom Xray Core.
+// inside bettercallakbar's custom Xray Core.
 type CheckClientIpJob struct {
 	xrayService service.XrayService
 }
@@ -44,7 +44,7 @@ func (j *CheckClientIpJob) Run() {
 		return
 	}
 
-	// Heimdall's custom Xray Core enforces simultaneous-IP limits directly
+	// bettercallakbar's custom Xray Core enforces simultaneous-IP limits directly
 	// from client-ip-limits.json. This compatibility job only records online
 	// IPs for panel display and node attribution.
 	j.processObserved(observed, true)

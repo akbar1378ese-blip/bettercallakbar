@@ -1,10 +1,10 @@
 ---
-title: آشنایی با Heimdall
+title: آشنایی با bettercallakbar
 description: یک پنل تحت وب برای Xray-core — ورودی‌ها، پروتکل‌ها، کلاینت‌ها و اشتراک‌ها را به‌جای ویرایش دستی JSON، از مرورگر خود مدیریت کنید.
 icon: Info
 ---
 
-**Heimdall** یک پنل کنترل تحت وب است که روی
+**bettercallakbar** یک پنل کنترل تحت وب است که روی
 [Xray-core](https://github.com/XTLS/Xray-core)، همان موتور پروکسی که در واقع
 ترافیک شما را جابه‌جا می‌کند، قرار می‌گیرد. به‌جای نوشتن و بارگذاری مجدد پیکربندی
 JSON ‏Xray به‌صورت دستی، همه‌چیز — ورودی‌ها، پروتکل‌ها، کلاینت‌ها، گواهی‌ها،
@@ -15,7 +15,7 @@ JSON ‏Xray به‌صورت دستی، همه‌چیز — ورودی‌ها، 
 <Mermaid
   chart={`
 flowchart LR
-  Admin["Admin browser"] -->|HTTPS panel| Panel["Heimdall panel"]
+  Admin["Admin browser"] -->|HTTPS panel| Panel["bettercallakbar panel"]
   Panel -->|writes config, reloads| Xray["Xray-core"]
   Panel --- DB[("SQLite or PostgreSQL")]
   Clients["Client apps"] -->|VLESS / VMess / Trojan / ...| Xray
@@ -41,7 +41,7 @@ flowchart LR
 - سهمیه‌های ترافیک **به‌ازای هر کلاینت**، تاریخ‌های انقضا، محدودیت‌های IP،
   وضعیت آنلاین و لینک‌های اشتراک‌گذاری / کدهای QR با یک کلیک.
 - **اشتراک‌ها** در قالب‌های VLESS، Clash/Mihomo و JSON.
-- ابزارهای عملیاتی: مدیریت **چندنودی**، یک **ربات Telegram**، پشتیبان‌گیری، محدودسازی IP توسط هستهٔ سفارشی Heimdall و یک REST API مستندشده.
+- ابزارهای عملیاتی: مدیریت **چندنودی**، یک **ربات Telegram**، پشتیبان‌گیری، محدودسازی IP توسط هستهٔ سفارشی bettercallakbar و یک REST API مستندشده.
 
 ## پشت صحنه
 
@@ -58,14 +58,14 @@ flowchart LR
 
 ## برای چه کسانی است
 
-Heimdall برای هر کسی که سرور Xray خودش را اجرا می‌کند طراحی شده است: از یک
+bettercallakbar برای هر کسی که سرور Xray خودش را اجرا می‌کند طراحی شده است: از یک
 VPS شخصی منفرد تا اپراتورهایی که نودها و کلاینت‌های فراوانی را مدیریت می‌کنند. اگر
 قدرت Xray-core را می‌خواهید بدون اینکه در فایل‌های پیکربندی JSON زندگی کنید، این
 برای شماست.
 
 <Callout type="info">
-  Heimdall بر پایهٔ پروژهٔ 3X-UI از MHSanaei توسعه یافته است و 3X-UI نیز از X-UI
-  مشتق شده است. Heimdall پشتیبانی گسترده‌تر از پروتکل‌ها، پایداری بهبودیافته،
+  bettercallakbar بر پایهٔ پروژهٔ 3X-UI از MHSanaei توسعه یافته است و 3X-UI نیز از X-UI
+  مشتق شده است. bettercallakbar پشتیبانی گسترده‌تر از پروتکل‌ها، پایداری بهبودیافته،
   حسابداری ترافیک به‌ازای هر کلاینت، مدیریت چندنودی و قابلیت‌های متعدد دیگری را اضافه می‌کند.
 </Callout>
 

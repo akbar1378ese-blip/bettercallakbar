@@ -1244,7 +1244,7 @@ func runSeeders(isUsersEmpty bool) error {
 		return err
 	}
 
-	// Heimdall enforces per-client IP limits inside the custom Xray Core.
+	// bettercallakbar enforces per-client IP limits inside the custom Xray Core.
 	// The upstream legacy reset seeder must therefore never clear persisted
 	// limitIp values.
 	// Self-gated on the "WireguardPeersToClients" row.

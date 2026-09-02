@@ -932,7 +932,7 @@ func parseXrayDigestSHA256(dgst []byte) (string, error) {
 }
 
 func (s *ServerService) UpdateXray(version string) error {
-	return fmt.Errorf("Heimdall uses a custom Xray Core; changing the Xray Core from the panel/API is disabled to preserve Speed & Connection Limit features")
+	return fmt.Errorf("bettercallakbar uses a custom Xray Core; changing the Xray Core from the panel/API is disabled to preserve Speed & Connection Limit features")
 }
 
 func (s *ServerService) GetLogs(count string, level string, syslog string) []string {

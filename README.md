@@ -2,19 +2,19 @@
 
 ## ⚡ Quick Start
 
-Install Heimdall with one command:
+Install bettercallakbar with one command:
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/HeimdallStudio/Heimdall-Panel/main/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/install.sh)
 ```
 
-During installation, Heimdall downloads the latest public release package, installs the panel, configures the system service, and walks you through the initial setup.
+During installation, bettercallakbar downloads the latest public release package, installs the panel, configures the system service, and walks you through the initial setup.
 
 ---
 
-## ✨ What Makes Heimdall Different?
+## ✨ What Makes bettercallakbar Different?
 
-Heimdall is designed for operators who need more control, cleaner subscription delivery, and a more practical workflow for real-world Xray deployments.
+bettercallakbar is designed for operators who need more control, cleaner subscription delivery, and a more practical workflow for real-world Xray deployments.
 It keeps the familiar panel experience, while adding operational tools for multi-profile subscriptions, per-client controls, infrastructure visibility, smarter routing, and easier service management.
 
 The goal is to make daily operation cleaner, more flexible, and more reliable without making the panel unnecessarily complicated.
@@ -85,7 +85,7 @@ This reduces unnecessary proxy load, improves access to local services, and crea
 
 ## 🙏 Credits
 
-Heimdall is built on top of the Xray ecosystem and is based on the excellent [3X-UI](https://github.com/MHSanaei/3x-ui/) project by MHSanaei.
+bettercallakbar is built on top of the Xray ecosystem and is based on the excellent [3X-UI](https://github.com/MHSanaei/3x-ui/) project by MHSanaei.
 
 It also integrates and customizes ideas from the [Ourenus](https://github.com/MatinDehghanian/Ourenus) subscription template, created by Matin Dehghanian, to provide a cleaner subscription experience.
 
@@ -95,11 +95,11 @@ Special thanks to the open-source projects, developers, and communities that mak
 
 ## 💛 Support the Project
 
-Heimdall is developed and maintained with a focus on quality, stability, and real-world usability.
+bettercallakbar is developed and maintained with a focus on quality, stability, and real-world usability.
 
 If you find this project useful and want to support its continued development, you can make a donation here:
 
-[Donate to Heimdall](https://reymit.ir/heimdall)
+[Donate to bettercallakbar](https://reymit.ir/bettercallakbar)
 
 Your support helps keep the project moving forward with more energy, better features, and long-term improvements.
 

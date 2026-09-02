@@ -32,7 +32,7 @@ func clientInboundStatEmail(logicalEmail string, inboundID int) string {
 	return model.ClientInboundStatEmail(logicalEmail, inboundID)
 }
 
-// parseClientInboundStatEmail resolves the inbound id from a Heimdall runtime
+// parseClientInboundStatEmail resolves the inbound id from a bettercallakbar runtime
 // stat email. The logical client is resolved through the stat_email mapping table;
 // this parser intentionally does not expose or derive the human-facing email.
 func parseClientInboundStatEmail(email string) (clientID int, inboundID int, ok bool) {
@@ -326,7 +326,7 @@ type runtimeClientTrafficMapping struct {
 	Reset           int     `gorm:"column:reset"`
 }
 
-// addAccurateClientInboundTraffic consumes Heimdall runtime stat emails and
+// addAccurateClientInboundTraffic consumes bettercallakbar runtime stat emails and
 // returns the legacy/non-runtime rows for the existing email-keyed path.
 //
 // Exact accounting path:

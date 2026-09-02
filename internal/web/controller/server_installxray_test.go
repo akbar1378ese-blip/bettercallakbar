@@ -13,7 +13,7 @@ import (
 	xuilogger "github.com/mhsanaei/3x-ui/v3/internal/logger"
 )
 
-func TestServerControllerInstallXrayDisabledForHeimdall(t *testing.T) {
+func TestServerControllerInstallXrayDisabledForbettercallakbar(t *testing.T) {
 	xuilogger.InitLogger(logging.ERROR)
 	gin.SetMode(gin.TestMode)
 
@@ -41,8 +41,8 @@ func TestServerControllerInstallXrayDisabledForHeimdall(t *testing.T) {
 		t.Fatalf("installXray response success = true, want false; body=%s", rec.Body.String())
 	}
 
-	if !strings.Contains(strings.ToLower(envelope.Msg), "heimdall") ||
+	if !strings.Contains(strings.ToLower(envelope.Msg), "bettercallakbar") ||
 		!strings.Contains(strings.ToLower(envelope.Msg), "disabled") {
-		t.Fatalf("response msg = %q, want Heimdall disabled message", envelope.Msg)
+		t.Fatalf("response msg = %q, want bettercallakbar disabled message", envelope.Msg)
 	}
 }

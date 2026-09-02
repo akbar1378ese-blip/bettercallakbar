@@ -162,8 +162,8 @@ func clientFanoutMedian(values []time.Duration) time.Duration {
 }
 
 func TestCreateFanoutScaleDiagnostic(t *testing.T) {
-	if os.Getenv("HEIMDALL_RUN_PERF_DIAGNOSTIC") != "1" {
-		t.Skip("set HEIMDALL_RUN_PERF_DIAGNOSTIC=1 to run")
+	if os.Getenv("bettercallakbar_RUN_PERF_DIAGNOSTIC") != "1" {
+		t.Skip("set bettercallakbar_RUN_PERF_DIAGNOSTIC=1 to run")
 	}
 
 	const repetitions = 3

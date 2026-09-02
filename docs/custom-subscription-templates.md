@@ -1,13 +1,13 @@
-# Heimdall Custom Subscription Templates
+# bettercallakbar Custom Subscription Templates
 
-Heimdall can render subscription pages from custom HTML templates.
+bettercallakbar can render subscription pages from custom HTML templates.
 
-Heimdall releases include the customized Ourenus-based subscription template
+bettercallakbar releases include the customized Ourenus-based subscription template
 used by the panel. You can also configure a separate custom template directory.
 
 To use your own template:
 
-1. Open the Heimdall panel settings.
+1. Open the bettercallakbar panel settings.
 2. Configure the custom subscription template option.
 3. Provide the absolute path to the directory containing the template, for example
    `/etc/x-ui/sub_templates/my-theme/`.

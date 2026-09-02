@@ -139,7 +139,7 @@ export default function IndexPage() {
   }
 
   function openTelegram() {
-    window.open('https://t.me/HeimdallStudio', '_blank', 'noopener,noreferrer');
+    window.open('https://t.me/bettercallakbarStudio', '_blank', 'noopener,noreferrer');
   }
 
   async function openConfig() {
@@ -231,7 +231,7 @@ export default function IndexPage() {
                     <Card
                       title={
                         <Space>
-                          <span className="heimdall-brand-text">HEIMDALL</span>
+                          <span className="bettercallakbar-brand-text">bettercallakbar</span>
                           {isMobile && displayVersion && (
                             <Tag color={panelUpdateInfo.updateAvailable ? 'orange' : 'green'}>
                               {panelUpdateInfo.updateAvailable
@@ -248,12 +248,12 @@ export default function IndexPage() {
                           key="tg"
                           role="button"
                           tabIndex={0}
-                          aria-label="@HeimdallStudio"
+                          aria-label="@bettercallakbarStudio"
                           onClick={openTelegram}
                           onKeyDown={activateOnKey(openTelegram)}
                         >
                           <TelegramFilled className="tg-icon" aria-hidden="true" />
-                          {!isMobile && <span>@HeimdallStudio</span>}
+                          {!isMobile && <span>@bettercallakbarStudio</span>}
                         </Space>,
                         <Space
                           key="panel-version"

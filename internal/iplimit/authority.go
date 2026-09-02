@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	AuthorityHeader         = "X-Heimdall-IPLimit-Auth"
+	AuthorityHeader         = "X-bettercallakbar-IPLimit-Auth"
 	authorityTokenVersion   = "v1"
 	defaultAuthorityTimeout = 3 * time.Second
 )
@@ -54,7 +54,7 @@ func MintAuthorityToken(secret []byte, childGuid string) (string, error) {
 		return "", err
 	}
 	mac := hmac.New(sha256.New, secret)
-	_, _ = mac.Write([]byte("heimdall-strict-ip-limit:" + guid))
+	_, _ = mac.Write([]byte("bettercallakbar-strict-ip-limit:" + guid))
 	return authorityTokenVersion + "." + guid + "." + hex.EncodeToString(mac.Sum(nil)), nil
 }
 
@@ -88,7 +88,7 @@ func VerifyAuthorityToken(secret []byte, token string) (string, bool) {
 		return "", false
 	}
 	mac := hmac.New(sha256.New, secret)
-	_, _ = mac.Write([]byte("heimdall-strict-ip-limit:" + guid))
+	_, _ = mac.Write([]byte("bettercallakbar-strict-ip-limit:" + guid))
 	if !hmac.Equal(got, mac.Sum(nil)) {
 		return "", false
 	}

@@ -31,7 +31,7 @@ RUN go build -ldflags "-w -s" -o build/x-ui main.go
 RUN ./packaging/docker/init.sh "$TARGETARCH"
 
 # ========================================================
-# Stage: Final Image of Heimdall
+# Stage: Final Image of bettercallakbar
 # ========================================================
 FROM alpine
 ENV TZ=Asia/Tehran

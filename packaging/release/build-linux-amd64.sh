@@ -17,11 +17,11 @@ VERSION="$(
         < "$REPO_ROOT/internal/config/version"
 )"
 
-CUSTOM_XRAY="${HEIMDALL_CUSTOM_XRAY:-}"
-EXPECTED_CUSTOM_XRAY_SHA256="${HEIMDALL_CUSTOM_XRAY_SHA256:-}"
-EXPECTED_PANEL_SHA256="${HEIMDALL_EXPECTED_PANEL_SHA256:-}"
-RUNTIME_BIN_DIR="${HEIMDALL_RUNTIME_BIN_DIR:-/usr/local/x-ui/bin}"
-OUTPUT_DIR="${HEIMDALL_RELEASE_OUTPUT_DIR:-$REPO_ROOT/release-out}"
+CUSTOM_XRAY="${bettercallakbar_CUSTOM_XRAY:-}"
+EXPECTED_CUSTOM_XRAY_SHA256="${bettercallakbar_CUSTOM_XRAY_SHA256:-}"
+EXPECTED_PANEL_SHA256="${bettercallakbar_EXPECTED_PANEL_SHA256:-}"
+RUNTIME_BIN_DIR="${bettercallakbar_RUNTIME_BIN_DIR:-/usr/local/x-ui/bin}"
+OUTPUT_DIR="${bettercallakbar_RELEASE_OUTPUT_DIR:-$REPO_ROOT/release-out}"
 
 fail() {
     printf '\nERROR: %s\n' "$*" >&2
@@ -44,13 +44,13 @@ test "$VERSION" = "1.5.3" ||
     fail "release version must be 1.5.3, got: $VERSION"
 
 test -n "$CUSTOM_XRAY" ||
-    fail "HEIMDALL_CUSTOM_XRAY is required"
+    fail "bettercallakbar_CUSTOM_XRAY is required"
 
 test -f "$CUSTOM_XRAY" ||
     fail "custom Xray file not found: $CUSTOM_XRAY"
 
 test -n "$EXPECTED_CUSTOM_XRAY_SHA256" ||
-    fail "HEIMDALL_CUSTOM_XRAY_SHA256 is required"
+    fail "bettercallakbar_CUSTOM_XRAY_SHA256 is required"
 
 ACTUAL_CUSTOM_XRAY_SHA256="$(
     sha256sum "$CUSTOM_XRAY" |
@@ -61,7 +61,7 @@ test "$ACTUAL_CUSTOM_XRAY_SHA256" = "$EXPECTED_CUSTOM_XRAY_SHA256" ||
     fail "custom Xray SHA256 mismatch"
 
 test -n "$EXPECTED_PANEL_SHA256" ||
-    fail "HEIMDALL_EXPECTED_PANEL_SHA256 is required"
+    fail "bettercallakbar_EXPECTED_PANEL_SHA256 is required"
 
 SOURCE_HEAD="$(git -C "$REPO_ROOT" rev-parse HEAD)"
 SOURCE_TREE="$(git -C "$REPO_ROOT" rev-parse HEAD^{tree})"

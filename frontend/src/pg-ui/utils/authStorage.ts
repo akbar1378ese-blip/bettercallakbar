@@ -3,7 +3,7 @@ const AUTH_TOKEN_KEYS = [
   'authToken',
   'accessToken',
   'x-ui-token',
-  'heimdall.auth.token',
+  'bettercallakbar.auth.token',
 ] as const;
 
 export function getAuthToken(): string | null {

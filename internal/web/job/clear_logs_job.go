@@ -29,7 +29,7 @@ func NewPruneXrayLogsJob() *PruneXrayLogsJob {
 
 // Run clears configured Xray access and error logs during daily cleanup.
 //
-// Heimdall's native client-IP enforcement does not consume legacy IP-limit
+// bettercallakbar's native client-IP enforcement does not consume legacy IP-limit
 // or banned-IP log files, so those files are neither created nor rotated.
 func (j *ClearLogsJob) Run() {
 	wipeXrayLogs()

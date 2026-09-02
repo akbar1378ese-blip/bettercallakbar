@@ -7,9 +7,9 @@ import (
 )
 
 // inboundHasSubscriptionProfiles reports whether the inbound already carries
-// Heimdall Multi-Profile / Subscription Profiles in streamSettings.externalProxy.
+// bettercallakbar Multi-Profile / Subscription Profiles in streamSettings.externalProxy.
 //
-// Heimdall product rule:
+// bettercallakbar product rule:
 //   - Subscription Profiles are the primary, product-facing multi-output feature.
 //   - Managed Hosts are only a compatibility/fallback layer.
 //   - Therefore Hosts must not override an inbound that already has profiles.

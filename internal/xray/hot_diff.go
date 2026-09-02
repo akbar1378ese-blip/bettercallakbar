@@ -305,7 +305,7 @@ func diffOutbounds(oldCfg, newCfg *Config, diff *HotDiff) bool {
 	}
 
 	// The panel's embedded xray-core cannot build a public plaintext VLESS
-	// outbound, while Heimdall's deployed custom core intentionally can. Any
+	// outbound, while bettercallakbar's deployed custom core intentionally can. Any
 	// added or changed outbound in that compatibility class must therefore be
 	// applied by a full process restart instead of HandlerService.AddOutbound.
 	for _, newE := range newOut {

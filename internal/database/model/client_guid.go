@@ -15,5 +15,5 @@ func LegacyClientGuidForEmail(email string) string {
 	if email == "" {
 		return ""
 	}
-	return uuid.NewSHA1(uuid.NameSpaceOID, []byte("heimdall-client:"+email)).String()
+	return uuid.NewSHA1(uuid.NameSpaceOID, []byte("bettercallakbar-client:"+email)).String()
 }

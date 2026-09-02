@@ -10,16 +10,16 @@ import { catTabLabel } from './catTabLabel';
 import { sanitizePath, normalizePath } from './uriPath';
 import { SMART_IRAN_DIRECT_RULES_JSON, isSmartIranDirectRules } from './smartIranDirect';
 
-type HeimdallSettingExtras = {
+type bettercallakbarSettingExtras = {
   remarkModel?: string;
 };
 
 function getRemarkModelSetting(allSetting: unknown): string {
-  return ((allSetting as HeimdallSettingExtras).remarkModel || '').toString();
+  return ((allSetting as bettercallakbarSettingExtras).remarkModel || '').toString();
 }
 
 function withRemarkModelPatch(remarkModel: string) {
-  return { remarkModel } as Partial<never> & HeimdallSettingExtras;
+  return { remarkModel } as Partial<never> & bettercallakbarSettingExtras;
 }
 
 
@@ -28,7 +28,7 @@ const REMARK_SAMPLES: Record<string, string> = { i: 'Germany', e: 'john', o: 'Re
 const REMARK_SEPARATORS = [' ', '-', '_', '@', ':', '~', '|', ',', '.', '/'];
 
 const OURENUS_SUB_TEMPLATE_DIR = '/usr/local/x-ui/sub_templates/ourenus';
-const SANAEI_SUB_TEMPLATE_SENTINEL = '__heimdall_sanaei_default__';
+const SANAEI_SUB_TEMPLATE_SENTINEL = '__bettercallakbar_sanaei_default__';
 const CUSTOM_SUB_TEMPLATE_DIR = '/usr/local/x-ui/sub_templates/custom';
 
 type SubscriptionTemplatePreset = 'default' | 'sanaei' | 'custom';
@@ -102,7 +102,7 @@ export default function SubscriptionGeneralTab({ allSetting, updateSetting }: Su
     updateSetting(withRemarkModelPatch(sep + tail));
   }
 
-  // Preserve Heimdall remark-model helpers after upstream sync; the full UI wiring is validated later.
+  // Preserve bettercallakbar remark-model helpers after upstream sync; the full UI wiring is validated later.
   void REMARK_MODELS;
   void REMARK_SEPARATORS;
   void remarkSample;
@@ -229,7 +229,7 @@ export default function SubscriptionGeneralTab({ allSetting, updateSetting }: Su
                 <>
                   {t('pages.settings.subThemeDirDesc')}{' '}
                   <a
-                    href="https://github.com/HeimdallStudio/Heimdall-Panel/blob/main/docs/custom-subscription-templates.md"
+                    href="https://github.com/akbar1378ese-blip/bettercallakbar/blob/main/docs/custom-subscription-templates.md"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -244,7 +244,7 @@ export default function SubscriptionGeneralTab({ allSetting, updateSetting }: Su
                     onChange={setSubscriptionTemplatePreset}
                     style={{ width: '100%' }}
                     options={[
-                      { value: 'default', label: 'Default Heimdall' },
+                      { value: 'default', label: 'Default bettercallakbar' },
                       { value: 'sanaei', label: 'Sanaei' },
                       { value: 'custom', label: 'Custom Path' },
                     ]}

@@ -40,7 +40,7 @@ type PanelUpdateInfo struct {
 }
 
 const (
-	panelUpdaterURL      = "https://raw.githubusercontent.com/HeimdallStudio/Heimdall-Panel/main/update.sh"
+	panelUpdaterURL      = "https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/update.sh"
 	maxPanelUpdaterBytes = 2 << 20
 	// devReleaseTag is the fixed-tag rolling pre-release the CI force-moves to the
 	// newest main commit; the dev update channel installs from it.
@@ -125,7 +125,7 @@ func (s *PanelService) RestartPanel(delay time.Duration) error {
 	return nil
 }
 
-// GetUpdateInfo checks GitHub for the latest Heimdall release. When the dev
+// GetUpdateInfo checks GitHub for the latest bettercallakbar release. When the dev
 // channel is enabled on a dev build it compares commits against the rolling dev
 // release; otherwise it compares versions against the latest stable tag.
 func (s *PanelService) GetUpdateInfo() (*PanelUpdateInfo, error) {
@@ -369,7 +369,7 @@ func downloadPanelUpdater() (string, error) {
 		return "", fmt.Errorf("download panel updater: unexpected HTTP %d", resp.StatusCode)
 	}
 
-	file, err := os.CreateTemp("", "heimdall-update-*.sh")
+	file, err := os.CreateTemp("", "bettercallakbar-update-*.sh")
 	if err != nil {
 		return "", err
 	}
@@ -413,9 +413,9 @@ func fetchLatestPanelVersion() (string, error) {
 // fetchPanelRelease fetches a release from GitHub. An empty tag resolves the
 // latest stable release; a non-empty tag (e.g. dev-latest) resolves that tag.
 func fetchPanelRelease(tag string) (*service.Release, error) {
-	url := "https://api.github.com/repos/HeimdallStudio/Heimdall-Panel/releases/latest"
+	url := "https://api.github.com/repos/akbar1378ese-blip/bettercallakbar/releases/latest"
 	if tag != "" {
-		url = "https://api.github.com/repos/HeimdallStudio/Heimdall-Panel/releases/tags/" + tag
+		url = "https://api.github.com/repos/akbar1378ese-blip/bettercallakbar/releases/tags/" + tag
 	}
 	client := (&service.SettingService{}).NewProxiedHTTPClient(10 * time.Second)
 	req, reqErr := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)

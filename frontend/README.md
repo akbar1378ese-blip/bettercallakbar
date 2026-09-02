@@ -1,4 +1,4 @@
-# Heimdall frontend
+# bettercallakbar frontend
 
 React 19 + Ant Design 6 + TypeScript + Vite 8. Three SPA bundles —
 `index.html` (admin panel SPA, all `/panel/*` routes), `login.html`

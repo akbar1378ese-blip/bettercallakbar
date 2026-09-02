@@ -1,4 +1,4 @@
-// Pure builders for Heimdall install commands (script + Docker). No React/DOM.
+// Pure builders for bettercallakbar install commands (script + Docker). No React/DOM.
 
 export type InstallMethod = 'script' | 'docker';
 
@@ -10,8 +10,8 @@ export interface InstallOptions {
   webBasePath: string;
 }
 
-const REPO_RAW = 'https://raw.githubusercontent.com/HeimdallStudio/Heimdall-Panel/main/install.sh';
-const IMAGE = 'heimdall-local:latest';
+const REPO_RAW = 'https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/install.sh';
+const IMAGE = 'bettercallakbar-local:latest';
 
 function isLatest(version: string): boolean {
   const v = version.trim().toLowerCase();
@@ -41,7 +41,7 @@ export function buildDockerRun(options: InstallOptions): string {
   lines.push(`  -v $PWD/cert/:/root/cert/`);
   lines.push(`  --network=host`);
   lines.push(`  --restart=unless-stopped`);
-  lines.push(`  --name heimdall`);
+  lines.push(`  --name bettercallakbar`);
   lines.push(`  ${IMAGE}`);
   return lines.join(' \\\n');
 }
@@ -57,10 +57,10 @@ export function buildDockerCompose(options: InstallOptions): string {
 
   return [
     `services:`,
-    `  heimdall:`,
+    `  bettercallakbar:`,
     `    build: .`,
       `    image: ${IMAGE}`,
-    `    container_name: heimdall`,
+    `    container_name: bettercallakbar`,
     `    volumes:`,
     `      - ./db/:/etc/x-ui/`,
     `      - ./cert/:/root/cert/`,

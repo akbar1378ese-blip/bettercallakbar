@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for taking the time to contribute to Heimdall. This guide gets a development panel running locally and explains the conventions the project follows so changes land cleanly.
+Thanks for taking the time to contribute to bettercallakbar. This guide gets a development panel running locally and explains the conventions the project follows so changes land cleanly.
 
 ## Prerequisites
 
@@ -50,8 +50,8 @@ Cross-building the Linux SQLite target from Windows (or vice versa) requires a s
 ## First-time setup
 
 ```bash
-git clone https://github.com/HeimdallStudio/Heimdall-Panel.git
-cd Heimdall-Panel
+git clone https://github.com/akbar1378ese-blip/bettercallakbar.git
+cd bettercallakbar-Panel
 
 cp .env.example .env
 
@@ -267,6 +267,6 @@ must match the override, for example `XUI_PORT: "8080"` with `ports: ["8080:8080
 
 ## Issues
 
-- Bug reports and feature requests: [GitHub Issues](https://github.com/HeimdallStudio/Heimdall-Panel/issues)
+- Bug reports and feature requests: [GitHub Issues](https://github.com/akbar1378ese-blip/bettercallakbar/issues)
 
 Before filing a bug, include the OS, Go version, panel version (`/panel/api/server/status` or the dashboard footer), and the relevant excerpt from `x-ui/3xui.log`.

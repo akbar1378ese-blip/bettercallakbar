@@ -1,4 +1,4 @@
-name: Heimdall Release Policy Check
+name: bettercallakbar Release Policy Check
 
 on:
   workflow_dispatch:

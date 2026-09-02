@@ -434,13 +434,13 @@ func (a *SUBController) serveSubPage(c *gin.Context, basePath string, page PageD
 		"announce":      a.subAnnounce,
 	}
 
-	const defaultHeimdallSubThemeDir = "/usr/local/x-ui/sub_templates/ourenus"
-	const sanaeiDefaultSubThemeDir = "__heimdall_sanaei_default__"
+	const defaultbettercallakbarSubThemeDir = "/usr/local/x-ui/sub_templates/ourenus"
+	const sanaeiDefaultSubThemeDir = "__bettercallakbar_sanaei_default__"
 
 	themeDir, _ := a.settingService.GetSubThemeDir()
 	themeDir = strings.TrimSpace(themeDir)
 	if themeDir == "" {
-		themeDir = defaultHeimdallSubThemeDir
+		themeDir = defaultbettercallakbarSubThemeDir
 	} else if themeDir == sanaeiDefaultSubThemeDir {
 		themeDir = ""
 	}

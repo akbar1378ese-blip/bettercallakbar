@@ -1,11 +1,11 @@
 blank_issues_enabled: false
 contact_links:
   - name: 📖 Project README
-    url: https://github.com/HeimdallStudio/Heimdall-Panel#readme
+    url: https://github.com/akbar1378ese-blip/bettercallakbar#readme
     about: Start here for the project overview, installation information, and current usage notes.
   - name: 🔍 Search existing issues
-    url: https://github.com/HeimdallStudio/Heimdall-Panel/issues?q=is%3Aissue
+    url: https://github.com/akbar1378ese-blip/bettercallakbar/issues?q=is%3Aissue
     about: Your bug, feature, or question may already be tracked. Comment on the existing one rather than opening a duplicate.
   - name: 🚀 Latest release
-    url: https://github.com/HeimdallStudio/Heimdall-Panel/releases/latest
+    url: https://github.com/akbar1378ese-blip/bettercallakbar/releases/latest
     about: Reproduce on the latest version before reporting — many bugs are already fixed in the most recent release.

@@ -1,6 +1,6 @@
-# Contributing to Heimdall Documentation
+# Contributing to bettercallakbar Documentation
 
-Thanks for helping improve the Heimdall documentation!
+Thanks for helping improve the bettercallakbar documentation!
 
 ## Prerequisites
 

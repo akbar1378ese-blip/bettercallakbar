@@ -18,7 +18,7 @@ from pathlib import Path
 from urllib.parse import urlparse, unquote
 
 
-# === HEIMDALL UI HELPERS ===
+# === bettercallakbar UI HELPERS ===
 UI_RESET = "\033[0m"
 UI_PURPLE = "\033[38;5;141m"
 UI_CYAN = "\033[38;5;117m"
@@ -54,10 +54,10 @@ def ui_item(num, label):
 
 def ui_input(prompt_text):
     return input(f"\033[1;38;5;141m{prompt_text}\033[0m")
-# === END HEIMDALL UI HELPERS ===
+# === END bettercallakbar UI HELPERS ===
 
 
-HEIMDALL_DB = os.environ.get("HEIMDALL_DB", "xui")
+bettercallakbar_DB = os.environ.get("bettercallakbar_DB", "xui")
 PSQL_USER = os.environ.get("PSQL_USER", "postgres")
 ALPHABET = string.ascii_lowercase + string.digits
 
@@ -109,13 +109,13 @@ def run_cmd(cmd, input_text=None, env=None):
         die(f"command failed: {' '.join(cmd)}")
     return res.stdout, res.stderr
 
-def run_heimdall_psql(sql):
-    cmd = ["sudo", "-u", PSQL_USER, "psql", "-d", HEIMDALL_DB, "-v", "ON_ERROR_STOP=1", "-Atc", sql]
+def run_bettercallakbar_psql(sql):
+    cmd = ["sudo", "-u", PSQL_USER, "psql", "-d", bettercallakbar_DB, "-v", "ON_ERROR_STOP=1", "-Atc", sql]
     out, _ = run_cmd(cmd)
     return out
 
-def run_heimdall_psql_script(sql):
-    cmd = ["sudo", "-u", PSQL_USER, "psql", "-d", HEIMDALL_DB, "-v", "ON_ERROR_STOP=1"]
+def run_bettercallakbar_psql_script(sql):
+    cmd = ["sudo", "-u", PSQL_USER, "psql", "-d", bettercallakbar_DB, "-v", "ON_ERROR_STOP=1"]
     return run_cmd(cmd, input_text=sql)
 
 def parse_env_file(path):
@@ -790,7 +790,7 @@ FROM (
         source_username = str(row.get("source_username") or "").strip()
 
         # Important: Hiddify's username has a random suffix. The real human
-        # client name is user.name, so map user.name -> Heimdall email/name.
+        # client name is user.name, so map user.name -> bettercallakbar email/name.
         target_name = source_name or source_username or str(row.get("uuid") or "").strip()
         if not target_name:
             continue
@@ -879,9 +879,9 @@ def parse_inbound_ids(raw):
             seen.add(i)
     return clean
 
-def validate_heimdall_tables():
+def validate_bettercallakbar_tables():
     required = {"clients", "client_inbounds", "client_traffics", "inbounds"}
-    out = run_heimdall_psql("""
+    out = run_bettercallakbar_psql("""
 SELECT table_name
 FROM information_schema.tables
 WHERE table_schema='public'
@@ -891,10 +891,10 @@ ORDER BY table_name;
     found = set(x.strip() for x in out.splitlines() if x.strip())
     missing = sorted(required - found)
     if missing:
-        die(f"missing Heimdall tables: {missing}")
+        die(f"missing bettercallakbar tables: {missing}")
 
-def fetch_heimdall_inbounds():
-    out = run_heimdall_psql("""
+def fetch_bettercallakbar_inbounds():
+    out = run_bettercallakbar_psql("""
 SELECT
   id || '|' ||
   COALESCE(protocol,'') || '|' ||
@@ -924,11 +924,11 @@ def validate_target_inbounds(inbound_ids, protocol=None):
     if not inbound_ids:
         return []
 
-    all_rows = fetch_heimdall_inbounds()
+    all_rows = fetch_bettercallakbar_inbounds()
     by_id = {r["id"]: r for r in all_rows}
     missing = [i for i in inbound_ids if i not in by_id]
     if missing:
-        die(f"target inbound ids not found in Heimdall: {missing}")
+        die(f"target inbound ids not found in bettercallakbar: {missing}")
 
     return [by_id[i] for i in inbound_ids]
 
@@ -1029,7 +1029,7 @@ def build_clients(rows, inbound_ids, protocol, on_hold_policy, email_prefix, reg
             comment = f"{comment} | {r.get('_source_label') or 'PasarGuard'} on_hold"
 
         if r.get("data_limit_reset_strategy") and r.get("data_limit_reset_strategy") != "no_reset":
-            warnings.append(f"{r.get('_source_label') or 'Source'} data_limit_reset_strategy={r.get('data_limit_reset_strategy')} not mapped; Heimdall reset=0")
+            warnings.append(f"{r.get('_source_label') or 'Source'} data_limit_reset_strategy={r.get('data_limit_reset_strategy')} not mapped; bettercallakbar reset=0")
 
         target_email = email_prefix + str(r.get("username"))
 
@@ -1084,7 +1084,7 @@ def build_clients(rows, inbound_ids, protocol, on_hold_policy, email_prefix, reg
                 "hwid_limit_ignored": r.get("hwid_limit"),
                 "data_limit_reset_strategy": r.get("data_limit_reset_strategy"),
             },
-            "heimdall": {
+            "bettercallakbar": {
                 "email": client["email"],
                 "uuid": client["uuid"],
                 "total_gb": client["total_gb"],
@@ -1131,7 +1131,7 @@ FROM clients c
 JOIN input_uuids i ON i.uuid = c.uuid
 ORDER BY 1;
 """
-    out = run_heimdall_psql(sql).strip()
+    out = run_bettercallakbar_psql(sql).strip()
     return out.splitlines() if out else []
 
 def build_insert_sql(clients):
@@ -1270,14 +1270,14 @@ WHERE i.id = b.inbound_id;
     stmts.append("COMMIT;")
     return "\n".join(stmts)
 
-def backup_heimdall_db():
+def backup_bettercallakbar_db():
     ts = datetime.utcnow().strftime("%Y%m%dT%H%M%S.%fZ")
-    bkdir = Path(f"/root/heimdall-backup-before-yui-migration-{ts}")
+    bkdir = Path(f"/root/bettercallakbar-backup-before-yui-migration-{ts}")
     bkdir.mkdir(parents=True, exist_ok=True)
     dump = bkdir / "xui-before-yui-migration.dump"
 
     with dump.open("wb") as f:
-        res = subprocess.run(["sudo", "-u", PSQL_USER, "pg_dump", "-Fc", "-d", HEIMDALL_DB], stdout=f, stderr=subprocess.PIPE, cwd="/tmp")
+        res = subprocess.run(["sudo", "-u", PSQL_USER, "pg_dump", "-Fc", "-d", bettercallakbar_DB], stdout=f, stderr=subprocess.PIPE, cwd="/tmp")
 
     if res.returncode != 0:
         print(res.stderr.decode(errors="ignore"), file=sys.stderr)
@@ -1313,12 +1313,12 @@ FROM clients
 WHERE email IN ({emails})
 ORDER BY email;
 """
-    return run_heimdall_psql(sql)
+    return run_bettercallakbar_psql(sql)
 
 def print_inbounds():
-    rows = fetch_heimdall_inbounds()
+    rows = fetch_bettercallakbar_inbounds()
     print()
-    print("Heimdall existing inbounds:")
+    print("bettercallakbar existing inbounds:")
     if not rows:
         print("  No inbounds found. Press Enter for no inbound attachment.")
         return
@@ -1536,10 +1536,10 @@ def print_interactive_overview(panel_label, detected_from, source_kind, rows):
     print(f"      └─ {_tree_value('Status', status_text)}")
     print()
 
-    print("HEIMDALL")
+    print("bettercallakbar")
     print("└─ Inbounds")
 
-    inbounds = fetch_heimdall_inbounds()
+    inbounds = fetch_bettercallakbar_inbounds()
 
     if not inbounds:
         print("   └─ No inbound found")
@@ -1561,7 +1561,7 @@ def print_interactive_overview(panel_label, detected_from, source_kind, rows):
 
     print()
     print("TARGET")
-    print("└─ Heimdall inbound selection")
+    print("└─ bettercallakbar inbound selection")
 
     if inbounds:
         print("   ├─ Single inbound: 1")
@@ -1591,7 +1591,7 @@ def interactive_fill(args, detected_url, detected_from):
         rows=rows,
     )
 
-    raw_inbounds = prompt("", "Target Heimdall inbound IDs")
+    raw_inbounds = prompt("", "Target bettercallakbar inbound IDs")
 
     if raw_inbounds.strip().lower() in {"0", "back", "b", "q", "exit"}:
         args._interactive_back_to_source_panel = True
@@ -1621,7 +1621,7 @@ def print_interactive_duplicate_summary(dupes):
 
     print()
     print("STATUS: stopped")
-    print("REASON: duplicate clients already exist in Heimdall")
+    print("REASON: duplicate clients already exist in bettercallakbar")
     print("DETAILS:")
 
     if email_count:
@@ -1712,7 +1712,7 @@ def main():
             print("HWID_POLICY=ignored limit_ip=0")
             print()
 
-        validate_heimdall_tables()
+        validate_bettercallakbar_tables()
         inbound_ids = parse_inbound_ids(args.inbounds)
         inbound_infos = validate_target_inbounds(inbound_ids)
 
@@ -1788,7 +1788,7 @@ def main():
 
         if not args.yes:
             print()
-            confirm = input("Type YES to backup Heimdall DB and run real import: ").strip()
+            confirm = input("Type YES to backup bettercallakbar DB and run real import: ").strip()
 
             if confirm != "YES":
                 print("IMPORT_CANCELLED")
@@ -1796,12 +1796,12 @@ def main():
 
         print()
         print("BACKUP_START")
-        bkdir = backup_heimdall_db()
+        bkdir = backup_bettercallakbar_db()
         print(f"BACKUP_DIR={bkdir}")
 
         print()
         print("REAL_IMPORT_START")
-        stdout, stderr = run_heimdall_psql_script(sql_text)
+        stdout, stderr = run_bettercallakbar_psql_script(sql_text)
         print(stdout)
 
         if stderr.strip():

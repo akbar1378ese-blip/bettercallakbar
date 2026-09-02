@@ -174,7 +174,7 @@ func (x *XrayAPI) DelInbound(tag string) error {
 const legacyPublicPlaintextVLESSGuard = "vless without TLS or other encryption is prohibited unless the server address is a private IP or domain"
 
 // embeddedOutboundBuildError validates an outbound through the xray-core
-// library linked into the panel. The deployed Heimdall core can intentionally
+// library linked into the panel. The deployed bettercallakbar core can intentionally
 // differ from that library, so compatibility exceptions must be handled by the
 // callers below rather than by weakening unrelated validation errors.
 func embeddedOutboundBuildError(outbound []byte) error {
@@ -187,7 +187,7 @@ func embeddedOutboundBuildError(outbound []byte) error {
 }
 
 // isLegacyPublicPlaintextVLESSGuard reports the one embedded-core rejection
-// that is incompatible with Heimdall's deployed custom core. The protocol
+// that is incompatible with bettercallakbar's deployed custom core. The protocol
 // check prevents the exception from swallowing an unrelated error that merely
 // happens to contain the same text.
 func isLegacyPublicPlaintextVLESSGuard(outbound []byte, err error) bool {
@@ -201,7 +201,7 @@ func isLegacyPublicPlaintextVLESSGuard(outbound []byte, err error) bool {
 }
 
 // OutboundRequiresExternalCoreRestart reports whether an outbound can only be
-// built by Heimdall's deployed custom core. Such an outbound must bypass the
+// built by bettercallakbar's deployed custom core. Such an outbound must bypass the
 // panel's embedded builder during hot apply and reach the external core through
 // a full process restart.
 func OutboundRequiresExternalCoreRestart(outbound []byte) bool {

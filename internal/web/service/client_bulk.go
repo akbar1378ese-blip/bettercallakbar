@@ -863,7 +863,7 @@ func (s *ClientService) BulkDelete(inboundSvc *InboundService, emails []string, 
 
 	if len(successIds) > 0 {
 		// Serialize row cleanup against the traffic poll and preserve
-		// Heimdall's activity lifecycle. When accounting is retained, shift
+		// bettercallakbar's activity lifecycle. When accounting is retained, shift
 		// group baselines before deleting ClientRecord rows; otherwise the
 		// complete traffic purge below performs that adjustment exactly once.
 		err = runSerializedTx(func(tx *gorm.DB) error {

@@ -22,7 +22,7 @@ import (
 
 // filterOutboundsRejectedByCore drops outbounds that remain invalid after the
 // panel's compatibility-aware validation. Public plaintext VLESS is retained
-// because Heimdall's deployed custom core supports it; malformed or otherwise
+// because bettercallakbar's deployed custom core supports it; malformed or otherwise
 // unsupported outbounds are still excluded before config merge.
 func filterOutboundsRejectedByCore(label string, outbounds []any) ([]any, []string) {
 	kept := make([]any, 0, len(outbounds))

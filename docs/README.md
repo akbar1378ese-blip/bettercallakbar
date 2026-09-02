@@ -1,13 +1,13 @@
-<h1 align="center">Heimdall Documentation</h1>
+<h1 align="center">bettercallakbar Documentation</h1>
 
 <p align="center">
   Documentation and browser-side tools for
-  <a href="https://github.com/HeimdallStudio/Heimdall-Panel"><b>Heimdall</b></a>,
+  <a href="https://github.com/akbar1378ese-blip/bettercallakbar"><b>bettercallakbar</b></a>,
   an advanced Xray-core management panel based on 3x-ui.
 </p>
 
 <p align="center">
-  <a href="https://github.com/HeimdallStudio/Heimdall-Panel/actions/workflows/docs-ci.yml"><img src="https://github.com/HeimdallStudio/Heimdall-Panel/actions/workflows/docs-ci.yml/badge.svg" alt="Docs CI" /></a>
+  <a href="https://github.com/akbar1378ese-blip/bettercallakbar/actions/workflows/docs-ci.yml"><img src="https://github.com/akbar1378ese-blip/bettercallakbar/actions/workflows/docs-ci.yml/badge.svg" alt="Docs CI" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-blue?style=flat-square" alt="License: GPL-3.0" /></a>
   <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js" alt="Next.js 16" />
   <img src="https://img.shields.io/badge/Fumadocs-16-0ea5e9?style=flat-square" alt="Fumadocs 16" />
@@ -15,13 +15,13 @@
 
 ## Overview
 
-The `docs/` directory contains Heimdall's documentation source, reference material,
+The `docs/` directory contains bettercallakbar's documentation source, reference material,
 and browser-side configuration tools. It is maintained alongside the panel source
 so documentation can evolve with the project.
 
 ## What's inside
 
-The documentation walks you through Heimdall from first install to day-to-day operation:
+The documentation walks you through bettercallakbar from first install to day-to-day operation:
 
 - **Getting Started** — installation, first login, and updating or uninstalling the panel.
 - **Configuration** — the panel, inbounds, REALITY, transports, clients, subscriptions, and share links.

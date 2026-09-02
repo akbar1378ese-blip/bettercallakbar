@@ -206,14 +206,14 @@ func (a *ServerController) getPanelUpdateInfo(c *gin.Context) {
 	jsonObj(c, info, nil)
 }
 
-// installXray is intentionally disabled in Heimdall.
-// Heimdall ships a pinned, verified core build; this endpoint must not install
+// installXray is intentionally disabled in bettercallakbar.
+// bettercallakbar ships a pinned, verified core build; this endpoint must not install
 // vanilla Xray releases from XTLS/Xray-core.
 func (a *ServerController) installXray(c *gin.Context) {
 	jsonMsg(
 		c,
 		I18nWeb(c, "pages.index.xraySwitchVersionPopover"),
-		fmt.Errorf("Xray core updates are disabled in Heimdall; use the pinned Heimdall core release workflow"),
+		fmt.Errorf("Xray core updates are disabled in bettercallakbar; use the pinned bettercallakbar core release workflow"),
 	)
 }
 

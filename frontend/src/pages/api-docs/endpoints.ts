@@ -360,7 +360,7 @@ export const sections: readonly Section[] = [
       {
         method: 'GET',
         path: '/panel/api/server/getPanelUpdateInfo',
-        summary: 'Check whether a newer HEIMDALL release is available on GitHub.',
+        summary: 'Check whether a newer bettercallakbar release is available on GitHub.',
       },
       {
         method: 'GET',
@@ -590,14 +590,14 @@ export const sections: readonly Section[] = [
     id: 'strict-ip-limit-authority',
     title: 'Strict IP Limit Authority',
     description:
-      'Internal synchronous authority endpoint used only between HEIMDALL panels for Strict IP Limit lease acquire, renew, and release decisions. Authentication uses the dedicated Strict-B authority header provisioned to direct child nodes.',
+      'Internal synchronous authority endpoint used only between bettercallakbar panels for Strict IP Limit lease acquire, renew, and release decisions. Authentication uses the dedicated Strict-B authority header provisioned to direct child nodes.',
     endpoints: [
       {
         method: 'POST',
         path: '/panel/ip-limit/v1/lease',
         summary: 'Resolve one authenticated Strict-B lease operation at the root authority, or relay it to the configured parent until the root is reached.',
         params: [
-          { name: 'X-Heimdall-IPLimit-Auth', in: 'header', type: 'string', desc: 'Dedicated per-child Strict-B authority credential.' },
+          { name: 'X-bettercallakbar-IPLimit-Auth', in: 'header', type: 'string', desc: 'Dedicated per-child Strict-B authority credential.' },
           { name: 'operation', in: 'body (json)', type: 'string', desc: 'acquire or release.' },
           { name: 'clientGuid', in: 'body (json)', type: 'string', desc: 'Stable logical ClientGuid.' },
           { name: 'ip', in: 'body (json)', type: 'string', desc: 'Canonical client source IP.' },
@@ -1107,7 +1107,7 @@ export const sections: readonly Section[] = [
     title: 'Admins',
     auth: 'cookie-only',
     description:
-      'Manage Heimdall panel administrator accounts from an active browser session. Bearer API tokens are rejected. Access follows administrator RBAC permissions, and password hashes are never returned.',
+      'Manage bettercallakbar panel administrator accounts from an active browser session. Bearer API tokens are rejected. Access follows administrator RBAC permissions, and password hashes are never returned.',
     endpoints: [
       {
         method: 'GET',
@@ -1227,7 +1227,7 @@ export const sections: readonly Section[] = [
     title: 'Admin Roles',
     auth: 'cookie-only',
     description:
-      'Manage Heimdall dashboard roles and RBAC presets from an active browser session. Bearer API tokens are rejected. Access follows role-management RBAC permissions; built-in and owner roles retain their backend protections.',
+      'Manage bettercallakbar dashboard roles and RBAC presets from an active browser session. Bearer API tokens are rejected. Access follows role-management RBAC permissions; built-in and owner roles retain their backend protections.',
     endpoints: [
       {
         method: 'GET',
@@ -1287,7 +1287,7 @@ export const sections: readonly Section[] = [
     id: 'nodes',
     title: 'Nodes',
     description:
-      'Manage remote HEIMDALL panels acting as nodes for a central panel. All endpoints under /panel/api/nodes.',
+      'Manage remote bettercallakbar panels acting as nodes for a central panel. All endpoints under /panel/api/nodes.',
     endpoints: [
       {
         method: 'GET',
@@ -1561,7 +1561,7 @@ export const sections: readonly Section[] = [
       {
         method: 'POST',
         path: '/panel/api/setting/restartPanel',
-        summary: 'Restart the entire HEIMDALL process after a 3-second grace period. The connection drops immediately; the panel comes back online ~5-10 seconds later.',
+        summary: 'Restart the entire bettercallakbar process after a 3-second grace period. The connection drops immediately; the panel comes back online ~5-10 seconds later.',
       },
       {
         method: 'POST',

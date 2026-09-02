@@ -122,7 +122,7 @@ func TestSub_DisabledHostSkipped(t *testing.T) {
 	}
 }
 
-// #4 — Heimdall rule: when both Managed Hosts and explicit Subscription
+// #4 — bettercallakbar rule: when both Managed Hosts and explicit Subscription
 // Profiles are set, Subscription Profiles win and Hosts are ignored.
 func TestSub_SubscriptionProfilesOverrideHosts(t *testing.T) {
 	seedSubDB(t)

@@ -50,7 +50,7 @@ func TestRemarkTemplate_IdentityTokensRepeatOnEveryLink(t *testing.T) {
 	}
 }
 
-// Equal token values are still distinct template positions. Heimdall must not
+// Equal token values are still distinct template positions. bettercallakbar must not
 // deduplicate EMAIL, INBOUND or HOST by value, nor suppress them on later links.
 func TestRemarkTemplate_EqualIdentityValuesAreNeverDeduplicated(t *testing.T) {
 	s := &SubService{
