@@ -28,8 +28,16 @@ describe('delegated API token model', () => {
     });
   });
 
-  it('accepts the dedicated custom-panel compatibility scope', () => {
-    const payload = buildApiTokenCreatePayload({
+  it('accepts the dedicated admins-read and custom-panel compatibility scopes', () => {
+    const adminsPayload = buildApiTokenCreatePayload({
+      name: 'admins-bot',
+      kind: 'delegated',
+      subjectAdminId: 7,
+      scopes: ['admins:read'],
+      expiryDays: 90,
+    }, 1_800_000_000);
+
+    const customPanelPayload = buildApiTokenCreatePayload({
       name: 'ravinods-bot',
       kind: 'delegated',
       subjectAdminId: 7,
@@ -37,7 +45,8 @@ describe('delegated API token model', () => {
       expiryDays: 90,
     }, 1_800_000_000);
 
-    expect(payload.scopes).toEqual(['custom-panel:manage']);
+    expect(adminsPayload.scopes).toEqual(['admins:read']);
+    expect(customPanelPayload.scopes).toEqual(['custom-panel:manage']);
   });
 
   it('requires deliberate service-token acknowledgement and strips stale delegated fields', () => {

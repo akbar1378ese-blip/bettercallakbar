@@ -1597,6 +1597,8 @@
         "apiTokenScopeClientsReadDesc": "List clients and read client details, traffic, links and activity status within the administrator's RBAC scope.",
         "apiTokenScopeClientsCreate": "Create clients",
         "apiTokenScopeClientsCreateDesc": "Create individual or bulk clients only where the administrator's current RBAC permissions allow it.",
+        "apiTokenScopeAdminsRead": "Read admins",
+        "apiTokenScopeAdminsReadDesc": "List administrator records and read admin details within the selected administrator's live RBAC scope.",
         "apiTokenScopeCustomPanelManage": "Custom panel bot",
         "apiTokenScopeCustomPanelManageDesc": "Use the X-API-Key custom panel compatibility endpoint within this administrator's live RBAC scope.",
         "apiTokenScopeFullAccess": "Full service access",

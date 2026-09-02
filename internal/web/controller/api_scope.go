@@ -27,6 +27,11 @@ func delegatedAPIRouteScope(method string, fullPath string) (string, bool) {
 			"/panel/api/clients/:email/activity",
 			"/panel/api/clients/:email/activity/status":
 			return panel.ApiTokenScopeClientsRead, true
+		case "/panel/api/admins/current",
+			"/panel/api/admins/list",
+			"/panel/api/admins/stats",
+			"/panel/api/admins/get/:id":
+			return panel.ApiTokenScopeAdminsRead, true
 		}
 	case http.MethodPost:
 		switch fullPath {

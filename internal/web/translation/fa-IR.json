@@ -1453,6 +1453,8 @@
         "apiTokenDeleteWarning": "هر کلاینتی که از این توکن استفاده می‌کند بلافاصله احراز هویتش قطع می‌شود.",
         "apiTokenCreatedTitle": "توکن ساخته شد",
         "apiTokenCreatedNotice": "اکنون این توکن را کپی کنید. به‌دلیل امنیتی به‌صورت قابل‌خواندن ذخیره نمی‌شود و دوباره نمایش داده نخواهد شد.",
+        "apiTokenScopeAdminsRead": "خواندن مدیران",
+        "apiTokenScopeAdminsReadDesc": "فهرست مدیران و جزئیات آن‌ها را در محدوده زنده RBAC مدیر انتخاب‌شده بخوانید.",
         "apiTokenScopeCustomPanelManage": "ربات پنل سفارشی",
         "apiTokenScopeCustomPanelManageDesc": "استفاده از مسیر سازگاری پنل سفارشی با هدر X-API-Key در محدوده زنده RBAC همین مدیر."
       },

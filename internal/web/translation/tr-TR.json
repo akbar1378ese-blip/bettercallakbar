@@ -1370,6 +1370,8 @@
         "apiTokenScopeClientsReadDesc": "Yöneticinin RBAC kapsamındaki istemcileri, ayrıntıları, trafiği, bağlantıları ve etkinlik durumunu okuyun.",
         "apiTokenScopeClientsCreate": "İstemci oluştur",
         "apiTokenScopeClientsCreateDesc": "Yalnızca yöneticinin güncel RBAC izinlerinin izin verdiği yerlerde tekil veya toplu istemci oluşturun.",
+        "apiTokenScopeAdminsRead": "Yöneticileri oku",
+        "apiTokenScopeAdminsReadDesc": "Seçili yöneticinin canlı RBAC kapsamı içinde yönetici kayıtlarını ve ayrıntılarını okuyun.",
         "apiTokenScopeFullAccess": "Tam servis erişimi",
         "apiTokenExpiry": "Son kullanma",
         "apiTokenExpiryHint": "Varsayılan süre 90 gündür. Süresiz seçeneği yalnızca belgelenmiş bir yenileme prosedürü olan entegrasyonlarda kullanın.",

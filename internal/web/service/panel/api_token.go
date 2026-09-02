@@ -23,6 +23,7 @@ const (
 
 	ApiTokenScopeClientsRead       = "clients:read"
 	ApiTokenScopeClientsCreate     = "clients:create"
+	ApiTokenScopeAdminsRead        = "admins:read"
 	ApiTokenScopeCustomPanelManage = "custom-panel:manage"
 )
 
@@ -31,6 +32,7 @@ var (
 	delegatedAPITokenScopes = map[string]struct{}{
 		ApiTokenScopeClientsRead:       {},
 		ApiTokenScopeClientsCreate:     {},
+		ApiTokenScopeAdminsRead:        {},
 		ApiTokenScopeCustomPanelManage: {},
 	}
 )

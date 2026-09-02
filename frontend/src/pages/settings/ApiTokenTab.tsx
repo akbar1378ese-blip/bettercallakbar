@@ -210,6 +210,7 @@ export default function ApiTokenTab() {
   function scopeLabel(scope: string): string {
     if (scope === 'clients:read') return t('pages.settings.security.apiTokenScopeClientsRead');
     if (scope === 'clients:create') return t('pages.settings.security.apiTokenScopeClientsCreate');
+    if (scope === 'admins:read') return t('pages.settings.security.apiTokenScopeAdminsRead', { defaultValue: 'Read admins' });
     if (scope === 'custom-panel:manage') {
       return t('pages.settings.security.apiTokenScopeCustomPanelManage', { defaultValue: 'Custom panel bot' });
     }

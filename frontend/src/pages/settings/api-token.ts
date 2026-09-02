@@ -1,7 +1,7 @@
 export const API_TOKEN_KINDS = ['delegated', 'service'] as const;
 export type ApiTokenKind = (typeof API_TOKEN_KINDS)[number];
 
-export const API_TOKEN_SCOPES = ['clients:read', 'clients:create', 'custom-panel:manage'] as const;
+export const API_TOKEN_SCOPES = ['clients:read', 'clients:create', 'admins:read', 'custom-panel:manage'] as const;
 export type ApiTokenScope = (typeof API_TOKEN_SCOPES)[number];
 
 export const API_TOKEN_EXPIRY_DAYS = [30, 90, 180, 365, 0] as const;

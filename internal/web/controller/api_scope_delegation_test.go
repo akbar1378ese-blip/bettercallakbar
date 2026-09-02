@@ -27,6 +27,10 @@ func mountDelegatedScopeTestRoutes(engine *gin.Engine, api *APIController) {
 	group.GET("/clients/groups", ok)
 	group.GET("/server/status", ok)
 	group.POST("/inbounds/add", ok)
+	group.GET("/admins/current", ok)
+	group.GET("/admins/list", ok)
+	group.GET("/admins/stats", ok)
+	group.GET("/admins/get/:id", ok)
 }
 
 func mountDelegatedScopeBasePathTestRoute(engine *gin.Engine, api *APIController) {
@@ -91,6 +95,15 @@ func TestDelegatedAPIScopeAllowlistIsDefaultDeny(t *testing.T) {
 	if err != nil {
 		t.Fatalf("create create token: %v", err)
 	}
+	adminsReadView, err := service.CreateWithOptions(panel.ApiTokenCreateOptions{
+		Name:           "scope admins read",
+		Kind:           model.ApiTokenKindDelegated,
+		SubjectAdminId: subject.Id,
+		Scopes:         []string{panel.ApiTokenScopeAdminsRead},
+	})
+	if err != nil {
+		t.Fatalf("create admins read token: %v", err)
+	}
 	serviceView, err := service.Create("scope service compatibility")
 	if err != nil {
 		t.Fatalf("create service token: %v", err)
@@ -110,6 +123,9 @@ func TestDelegatedAPIScopeAllowlistIsDefaultDeny(t *testing.T) {
 		{name: "create token creates one", token: createView.Token, method: http.MethodPost, path: "/panel/api/clients/add", want: http.StatusNoContent},
 		{name: "create token creates bulk", token: createView.Token, method: http.MethodPost, path: "/panel/api/clients/bulkCreate", want: http.StatusNoContent},
 		{name: "create token cannot read", token: createView.Token, method: http.MethodGet, path: "/panel/api/clients/list", want: http.StatusForbidden},
+		{name: "admins read token lists admins", token: adminsReadView.Token, method: http.MethodGet, path: "/panel/api/admins/list", want: http.StatusNoContent},
+		{name: "admins read token gets one admin", token: adminsReadView.Token, method: http.MethodGet, path: "/panel/api/admins/get/1", want: http.StatusNoContent},
+		{name: "admins read token cannot create client", token: adminsReadView.Token, method: http.MethodPost, path: "/panel/api/clients/add", want: http.StatusForbidden},
 		{name: "delegated token cannot update", token: createView.Token, method: http.MethodPost, path: "/panel/api/clients/update/alice", want: http.StatusForbidden},
 		{name: "delegated token cannot administer groups", token: readView.Token, method: http.MethodGet, path: "/panel/api/clients/groups", want: http.StatusForbidden},
 		{name: "delegated token cannot read server", token: readView.Token, method: http.MethodGet, path: "/panel/api/server/status", want: http.StatusForbidden},
