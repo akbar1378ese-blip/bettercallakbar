@@ -7,7 +7,7 @@ bettercallakbar Docker dependency bundling is disabled.
 bettercallakbar requires the audited private custom Xray core. Downloading or
 substituting an official prebuilt Xray binary is forbidden.
 
-The supported v1.5.3 distribution is the audited linux-amd64 release archive.
+The supported v1.5.6 distribution is the audited linux-amd64 release archive.
 MESSAGE
 
 exit 1

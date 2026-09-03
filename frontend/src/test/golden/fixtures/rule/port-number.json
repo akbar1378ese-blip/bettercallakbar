@@ -1,6 +1,0 @@
-{
-  "type": "field",
-  "port": 443,
-  "network": "tcp",
-  "outboundTag": "tls-out"
-}

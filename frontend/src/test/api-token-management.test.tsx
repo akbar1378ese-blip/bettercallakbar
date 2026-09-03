@@ -81,21 +81,27 @@ describe('delegated API token management UI', () => {
     expect(screen.getByRole('tab', { name: /API Token/i })).toBeTruthy();
   });
 
-  it('shows only service-token controls in the create modal', async () => {
-    vi.mocked(HttpUtil.get).mockResolvedValueOnce(tokenListResponse([]));
+  it('shows operator and sales-bot controls in the create modal', async () => {
+    vi.mocked(HttpUtil.get)
+      .mockResolvedValueOnce(tokenListResponse([]))
+      .mockResolvedValueOnce(tokenListResponse([{
+        id: 7,
+        username: 'operator-a',
+        roleId: 2,
+        roleName: 'Operator',
+      }]));
 
     renderWithTheme(<ApiTokenTab />);
     await waitFor(() => expect(HttpUtil.get).toHaveBeenCalledTimes(1));
 
     fireEvent.click(screen.getByRole('button', { name: /New token/i }));
 
-    expect(await screen.findByText('Full-trust infrastructure credential')).toBeTruthy();
-    expect(screen.queryByText('Credential type')).toBeNull();
-    expect(screen.queryByRole('radio', { name: /User token/i })).toBeNull();
-    expect(screen.queryByRole('radio', { name: /Service token/i })).toBeNull();
-    expect(screen.queryByLabelText('Panel administrator')).toBeNull();
-    expect(screen.queryByRole('checkbox', { name: 'Custom panel bot' })).toBeNull();
-    expect(HttpUtil.get).toHaveBeenCalledTimes(1);
+    expect(await screen.findByText('RBAC-scoped user credential')).toBeTruthy();
+    expect(screen.getByRole('radio', { name: /User token/i })).toBeTruthy();
+    expect(screen.getByRole('radio', { name: /Service token/i })).toBeTruthy();
+    expect(screen.getByLabelText('Panel administrator')).toBeTruthy();
+    expect(screen.getByRole('checkbox', { name: 'Custom panel bot' })).toBeTruthy();
+    expect(HttpUtil.get).toHaveBeenCalledTimes(2);
   });
 
   it('shows delegated metadata and prevents re-enabling an expired token', async () => {
@@ -145,11 +151,10 @@ describe('delegated API token management UI', () => {
     renderWithTheme(<ApiTokenTab />);
     await waitFor(() => expect(HttpUtil.get).toHaveBeenCalledTimes(1));
     fireEvent.click(screen.getByRole('button', { name: /New token/i }));
-    expect(HttpUtil.get).toHaveBeenCalledTimes(1);
+    expect(HttpUtil.get).toHaveBeenCalledTimes(2);
 
+    fireEvent.click(await screen.findByRole('radio', { name: /Service token/i }));
     expect(await screen.findByText('Full-trust infrastructure credential')).toBeTruthy();
-    expect(screen.queryByRole('radio', { name: /User token/i })).toBeNull();
-    expect(screen.queryByRole('radio', { name: /Service token/i })).toBeNull();
     fireEvent.change(screen.getByLabelText('Name'), {
       target: { value: 'trusted-remote-panel' },
     });

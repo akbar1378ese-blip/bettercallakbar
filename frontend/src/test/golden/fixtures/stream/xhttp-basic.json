@@ -1,8 +1,0 @@
-{
-  "network": "xhttp",
-  "xhttpSettings": {
-    "path": "/sp",
-    "host": "edge.example.test",
-    "mode": "auto"
-  }
-}

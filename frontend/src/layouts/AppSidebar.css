@@ -34,7 +34,16 @@
   display: inline-flex;
   align-items: center;
   min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
   line-height: 1.1;
+}
+
+.brand-text,
+.drawer-brand {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sider-brand-collapsed .brand-block {

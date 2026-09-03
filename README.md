@@ -1,105 +1,131 @@
-<img width="2290" height="687" alt="image" src="https://github.com/user-attachments/assets/39a7a9e3-aa5e-4abb-a52a-e5900a6470db" />
+# bettercallakbar
 
-## ⚡ Quick Start
+<p align="center">
+	<img src="./bettercallakbar-overview.png" alt="bettercallakbar" width="800">
+</p>
 
-Install bettercallakbar with one command:
+<p align="center">
+	<img src="./bettercallakbar-features.png" alt="ویژگی‌های bettercallakbar" width="800">
+</p>
+
+## ⚡ نصب سریع
+
+نصب **bettercallakbar** تنها با یک دستور:
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/install.sh)
 ```
 
-During installation, bettercallakbar downloads the latest public release package, installs the panel, configures the system service, and walks you through the initial setup.
+در فرآیند نصب، آخرین پکیج انتشار عمومی دانلود می‌شود، پنل نصب می‌گردد، سرویس سیستم‌عامل پیکربندی می‌شود و تنظیمات اولیه به‌صورت تعاملی انجام می‌گیرد.
 
 ---
 
-## ✨ What Makes bettercallakbar Different?
+## ✨ تفاوت‌های کلیدی bettercallakbar
 
-bettercallakbar is designed for operators who need more control, cleaner subscription delivery, and a more practical workflow for real-world Xray deployments.
-It keeps the familiar panel experience, while adding operational tools for multi-profile subscriptions, per-client controls, infrastructure visibility, smarter routing, and easier service management.
+**bettercallakbar** یک پنل مدیریت پیشرفته مبتنی بر اکوسیستم Xray است که برای اپراتورهایی طراحی شده که به کنترل دقیق‌تر، مدیریت چندپروفایلی، محدودیت‌های سطح کلاینت و دید عملیاتی بالاتر نیاز دارند.
 
-The goal is to make daily operation cleaner, more flexible, and more reliable without making the panel unnecessarily complicated.
+این پنل تجربه آشنای 3X-UI را حفظ کرده و در عین حال ابزارهای عملیاتی واقعی برای محیط‌های پرتردد و چندکاربره اضافه کرده است:
 
+- Multi-Profile Inbounds
+- محدودیت سرعت و تعداد اتصال همزمان در سطح هر کلاینت
+- مانیتورینگ فعالیت کلاینت‌ها
+- Hidden Infrastructure
+- Smart Subscription با پشتیبانی از Iran Direct Routing
+
+هدف اصلی، افزایش انعطاف‌پذیری عملیاتی بدون پیچیده‌سازی غیرضروری پنل است.
 
 ---
 
 ## 🧩 Multi-Profile Inbounds
 
-Multi-Profile Inbounds allow a single inbound to serve multiple independent subscription profiles without duplicating the entire inbound configuration.
+قابلیت **Multi-Profile Inbounds** امکان تعریف چندین پروفایل اشتراک مستقل روی یک اینباند واحد را فراهم می‌کند، بدون نیاز به تکرار کامل کانفیگ اینباند.
 
-Each profile can define its own address, transport, security mode, display behavior, and subscription output. This makes it easier to manage multiple domains, brands, user groups, or routing strategies from one organized inbound structure.
+هر پروفایل می‌تواند به‌صورت مستقل تنظیمات زیر را داشته باشد:
 
-The result is a cleaner backend, fewer duplicate entries, and a much more flexible subscription workflow.
+- آدرس و دامنه
+- نوع Transport
+- حالت Security
+- رفتار نمایش در Subscription
+- خروجی نهایی لینک اشتراک
 
-<img width="1672" height="941" alt="multiProfile" src="https://github.com/user-attachments/assets/5e7bc87c-8ca9-4a08-b311-9c9a7af22d85" />
-
+این ساختار برای مدیریت همزمان چند دامنه، چند برند، گروه‌های کاربری مختلف یا استراتژی‌های مسیریابی متفاوت بسیار کارآمد است و از ایجاد اینباندهای تکراری جلوگیری می‌کند.
 
 ---
 
-## 🚦 Per-Client Speed & Connection Limits
+## 🚦 محدودیت سرعت و تعداد اتصال همزمان در سطح کلاینت
 
-Per-client speed controls make it possible to define separate upload and download speed limits for each client, while also controlling how many concurrent connections the client is allowed to use.
+در bettercallakbar امکان تعریف محدودیت سرعت آپلود و دانلود به‌صورت جداگانه برای هر کلاینت وجود دارد. همچنین می‌توان تعداد اتصالات همزمان مجاز برای هر کلاینت را محدود کرد.
 
-Unlike a total traffic quota, which limits how much data a client can consume, speed limits control how fast each client can upload or download. This makes it easier to create service tiers, apply fair usage policies, and protect server capacity from heavy or abusive usage.
+برخلاف محدودیت ترافیک کلی (Quota)، این قابلیت رفتار سرعت واقعی کلاینت را کنترل می‌کند و برای موارد زیر بسیار کاربردی است:
 
-Concurrent connection limits add another layer of control by helping reduce account sharing and keeping resource usage more predictable across the server.
+- ایجاد پلن‌های خدماتی با سطوح سرعت مختلف
+- اعمال سیاست Fair Usage
+- جلوگیری از مصرف بیش از حد منابع سرور توسط کاربران سنگین
+- کاهش اشتراک‌گذاری حساب (Account Sharing)
 
-For deployments with many users, these controls make the service more stable, fair, and easier to operate.
-
-<img width="1672" height="941" alt="file_00000000de9071f498c8a8e178843173" src="https://github.com/user-attachments/assets/0dbc02f7-155b-4225-8f55-86838c59a704" />
+این کنترل‌ها پایداری سرویس را در محیط‌های پر کاربر به‌طور محسوسی افزایش می‌دهد.
 
 ---
 
 ## 📊 Client Activity Monitoring
 
-Client Activity Monitoring provides optional visibility into selected clients and their traffic behavior.
+قابلیت **مانیتورینگ فعالیت کلاینت** امکان مشاهده رفتار ترافیکی کلاینت‌های انتخاب‌شده را فراهم می‌کند.
 
-When enabled, it can help operators review observed destinations, traffic usage, and activity patterns. This is useful for abuse investigation, routing diagnostics, service quality checks, and understanding how traffic flows through the system.
+با فعال‌سازی این ویژگی می‌توان موارد زیر را بررسی کرد:
 
-The feature is designed for controlled operational use, without making the panel unnecessarily heavy or complicated.
+- مقاصد مشاهده‌شده
+- میزان مصرف ترافیک
+- الگوهای فعالیت
 
-<img width="1672" height="941" alt="ClientActivity" src="https://github.com/user-attachments/assets/cf19552e-51d8-4099-b2e4-23fc10b320d7" />
+این ابزار برای بررسی سوءاستفاده، عیب‌یابی مسیریابی، کنترل کیفیت سرویس و تحلیل جریان ترافیک بسیار مفید است و بدون ایجاد بار اضافی روی پنل طراحی شده است.
 
 ---
 
 ## 🕶️ Hidden Infrastructure
 
-Hidden Infrastructure is managed through the y-ui terminal script and allows internal resources to be hidden without changing the actual runtime behavior.
+از طریق اسکریپت ترمینال `y-ui` می‌توان بخش‌های داخلی زیرساخت را بدون تغییر در رفتار واقعی سیستم مخفی کرد.
 
-Operators can hide inbound remarks, outbound tags, balancer tags, client emails, and routing-related entries from normal views or subscription outputs. This is useful for tunnel layers, internal routes, backend services, reseller structures, and operational-only configurations.
+موارد قابل مخفی‌سازی شامل:
 
-Hidden items continue to work normally in the background, while the visible panel and subscription output stay cleaner, safer, and easier to manage.
+- Remark اینباندها
+- تگ اوت‌باندها
+- تگ بالانسرها
+- ایمیل کلاینت‌ها
+- ورودی‌های مربوط به Routing
 
-<img width="1672" height="941" alt="826ac078-92da-41f2-a483-993ce4e86edd" src="https://github.com/user-attachments/assets/6425e5af-ff34-4de6-9d5f-c425054e078f" />
+این قابلیت برای لایه‌های تونل، مسیرهای داخلی، سرویس‌های بک‌اند و ساختارهای ریسلری بسیار کاربردی است. آیتم‌های مخفی همچنان در پس‌زمینه به‌درستی کار می‌کنند، اما در نمای پنل و خروجی اشتراک دیده نمی‌شوند.
 
 ---
 
-## 🧭 Smart Subscription Links & Iran Direct Routing
+## 🧭 Smart Subscription Links و Iran Direct Routing
 
-Smart Subscription Links turn subscription output into a cleaner and more practical client experience, powered by the customized Ourenus-based subscription template.
+خروجی اشتراک‌ها بر پایه قالب سفارشی‌شده **Ourenus** تولید می‌شود و تجربه کلاینت را تمیزتر و کاربردی‌تر می‌کند.
 
-Iran Direct Routing adds dedicated routing support for Iranian domains and IP ranges, allowing domestic traffic to be routed directly when direct routing is appropriate instead of passing through the proxy path.
+قابلیت **Iran Direct Routing** مسیرهای اختصاصی برای دامنه‌ها و رنج‌های IP ایرانی اضافه می‌کند. در نتیجه ترافیک داخلی (سایت‌های ایرانی، بانک‌ها، اپلیکیشن‌های داخلی و منابع محلی) به‌جای عبور از پروکسی، به‌صورت مستقیم مسیریابی می‌شود.
 
-This reduces unnecessary proxy load, improves access to local services, and creates smoother client profiles for users who frequently access Iranian websites, banking platforms, local applications, and domestic resources.
+**مزایا:**
 
-<img width="1672" height="941" alt="sub template" src="https://github.com/user-attachments/assets/626b2086-96cd-405f-9f6e-25ecb87357c8" />
+- کاهش بار غیرضروری روی پروکسی
+- بهبود دسترسی به سرویس‌های داخلی
+- پروفایل‌های کلاینت روان‌تر برای کاربران ایرانی
 
-## 🙏 Credits
+---
 
-bettercallakbar is built on top of the Xray ecosystem and is based on the excellent [3X-UI](https://github.com/MHSanaei/3x-ui/) project by MHSanaei.
+## 🙏 اعتبارات
 
-It also integrates and customizes ideas from the [Ourenus](https://github.com/MatinDehghanian/Ourenus) subscription template, created by Matin Dehghanian, to provide a cleaner subscription experience.
+**bettercallakbar** بر پایه اکوسیستم Xray ساخته شده و از پروژه عالی [3X-UI](https://github.com/MHSanaei/3x-ui/) توسعه یافته توسط MHSanaei الهام گرفته است.
 
-Special thanks to the open-source projects, developers, and communities that make this ecosystem possible.
+همچنین از قالب اشتراک [Ourenus](https://github.com/MatinDehghanian/Ourenus) ساخته‌شده توسط Matin Dehghanian استفاده و سفارشی‌سازی شده است.
 
+از تمام پروژه‌ها، توسعه‌دهندگان و جامعه متن‌باز که این اکوسیستم را ممکن ساخته‌اند سپاسگزاریم.
 
+---
 
-## 💛 Support the Project
+## 💛 حمایت از پروژه
 
-bettercallakbar is developed and maintained with a focus on quality, stability, and real-world usability.
+اگر این پروژه برای شما مفید بوده و مایلید از توسعه مستمر آن حمایت کنید:
 
-If you find this project useful and want to support its continued development, you can make a donation here:
+[حمایت مالی از bettercallakbar](https://reymit.ir/bettercallakbar)
 
-[Donate to bettercallakbar](https://reymit.ir/bettercallakbar)
-
-Your support helps keep the project moving forward with more energy, better features, and long-term improvements.
+حمایت شما به ادامه توسعه، پایداری و افزودن قابلیت‌های جدید کمک می‌کند.
 

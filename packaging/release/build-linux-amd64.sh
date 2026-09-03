@@ -40,8 +40,8 @@ do
     need "$tool"
 done
 
-test "$VERSION" = "1.5.3" ||
-    fail "release version must be 1.5.3, got: $VERSION"
+test "$VERSION" = "1.5.6" ||
+    fail "release version must be 1.5.6, got: $VERSION"
 
 test -n "$CUSTOM_XRAY" ||
     fail "bettercallakbar_CUSTOM_XRAY is required"

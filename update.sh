@@ -974,6 +974,10 @@ update_x-ui() {
         rm ${xui_folder}-linux-$(arch).tar.gz -f > /dev/null 2>&1
         _fail "ERROR: Downloaded x-ui release archive is empty, please be sure that your server can access GitHub"
     fi
+    if ! tar tzf "${xui_folder}-linux-$(arch).tar.gz" 2> /dev/null | grep -Fxq 'x-ui/x-ui'; then
+        rm -f "${xui_folder}-linux-$(arch).tar.gz" > /dev/null 2>&1
+        _fail "ERROR: Downloaded x-ui release archive is invalid: x-ui/x-ui is missing"
+    fi
 
     if [[ -e ${xui_folder}/ ]]; then
         echo -e "${green}Stopping x-ui...${plain}"

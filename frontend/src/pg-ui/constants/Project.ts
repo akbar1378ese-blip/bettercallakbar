@@ -1,5 +1,0 @@
-export const REPO_URL = 'https://github.com/PasarGuard/panel'
-export const ORGANIZATION_URL = 'https://github.com/PasarGuard'
-export const DONATION_URL = 'https://donate.pasarguard.org'
-export const DISCUSSION_GROUP = 'https://t.me/Pasar_Guard'
-export const DOCUMENTATION = 'https://docs.pasarguard.org'

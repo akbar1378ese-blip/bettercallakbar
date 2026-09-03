@@ -1423,6 +1423,12 @@ install_x-ui() {
             echo -e "${red}Downloaded x-ui release archive is empty${plain}"
             exit 1
         fi
+
+        if ! tar tzf "${xui_folder}-linux-$(arch).tar.gz" 2> /dev/null | grep -Fxq 'x-ui/x-ui'; then
+            rm -f "${xui_folder}-linux-$(arch).tar.gz"
+            echo -e "${red}Downloaded x-ui release archive is invalid: x-ui/x-ui is missing${plain}"
+            exit 1
+        fi
     else
         tag_version=$1
         # The rolling dev channel ships under a fixed, non-semver tag that is
@@ -1453,6 +1459,12 @@ install_x-ui() {
             echo -e "${red}Downloaded x-ui release archive is empty${plain}"
             exit 1
         fi
+    fi
+
+    if ! tar tzf "${xui_folder}-linux-$(arch).tar.gz" 2> /dev/null | grep -Fxq 'x-ui/x-ui'; then
+        rm -f "${xui_folder}-linux-$(arch).tar.gz"
+        echo -e "${red}Downloaded x-ui release archive is invalid: x-ui/x-ui is missing${plain}"
+        exit 1
     fi
     local xui_script_temp="/usr/bin/x-ui-temp.$$"
     rm -f "${xui_script_temp}"

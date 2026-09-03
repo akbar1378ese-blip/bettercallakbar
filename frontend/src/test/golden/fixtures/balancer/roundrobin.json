@@ -1,8 +1,0 @@
-{
-  "tag": "balancer-rr",
-  "selector": ["proxy-a", "proxy-b", "proxy-c"],
-  "fallbackTag": "direct",
-  "strategy": {
-    "type": "roundRobin"
-  }
-}
