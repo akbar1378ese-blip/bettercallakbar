@@ -139,15 +139,6 @@ func readClientIps(t *testing.T, email string) []IPWithTimestamp {
 	return out
 }
 
-// make a lookup map so asserts don't depend on slice order.
-func ipSet(entries []IPWithTimestamp) map[string]int64 {
-	out := make(map[string]int64, len(entries))
-	for _, e := range entries {
-		out[e.IP] = e.Timestamp
-	}
-	return out
-}
-
 // With the access-log fallback removed, an unavailable online-stats API (xray
 // down, as in this unit test) must make Run a clean no-op: no legacy enforcement side effects and no
 // inbound_client_ips rows — never a crash or partial work.
@@ -166,7 +157,6 @@ func TestProcessObserved_CollectsIpsWithoutLimit(t *testing.T) {
 	if len(ips) != 1 || ips[0].IP != "203.0.113.10" {
 		t.Fatalf("expected the observed IP to be collected without a limit, got %v", ips)
 	}
-
 }
 
 // #4963: an observed IP for a renamed/deleted client (its email no longer maps
@@ -192,15 +182,6 @@ func TestProcessObserved_StaleEmailIsSkippedAndOrphanDropped(t *testing.T) {
 	if count != 0 {
 		t.Fatalf("stale-email orphan row should be deleted, got %d row(s)", count)
 	}
-}
-
-func contains(haystack, needle string) bool {
-	for i := 0; i+len(needle) <= len(haystack); i++ {
-		if haystack[i:i+len(needle)] == needle {
-			return true
-		}
-	}
-	return false
 }
 
 // the exact clients/client_inbounds relation must win over the substring scan,

@@ -361,15 +361,16 @@ func collapseSameProtocolUDPGroup(
 		return indexes[0], nil
 	}
 	network := runtimeNetwork(endpoints[indexes[0]].stream)
-	if network == "hysteria" {
+	switch network {
+	case "hysteria":
 		if parent.Protocol != model.Hysteria {
 			return 0, fmt.Errorf("Hysteria UDP groups require a Hysteria logical inbound")
 		}
-	} else if network == "kcp" {
+	case "kcp":
 		if parent.Protocol == model.Hysteria {
 			return 0, fmt.Errorf("Hysteria logical inbounds cannot contain mKCP runtime profiles")
 		}
-	} else {
+	default:
 		return 0, fmt.Errorf("transport %q is not supported by same-port UDP aliasing", network)
 	}
 

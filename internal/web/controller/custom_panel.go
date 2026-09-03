@@ -22,8 +22,10 @@ import (
 	"gorm.io/gorm"
 )
 
-const customPanelMaxBodyBytes = 64 << 10
-const customPanelMillisPerDay = int64(24 * 60 * 60 * 1000)
+const (
+	customPanelMaxBodyBytes = 64 << 10
+	customPanelMillisPerDay = int64(24 * 60 * 60 * 1000)
+)
 
 type CustomPanelController struct {
 	clientService  service.ClientService

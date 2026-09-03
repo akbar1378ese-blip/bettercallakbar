@@ -510,7 +510,7 @@ func validateRuntimeProfileBindings(config *xray.Config) error {
 		seenTags[inbound.Tag] = binding
 
 		for _, previous := range bindings {
-			if !(binding.Synthetic || previous.Synthetic) || !runtimeBindingsConflict(previous, binding) {
+			if (!binding.Synthetic && !previous.Synthetic) || !runtimeBindingsConflict(previous, binding) {
 				continue
 			}
 			return fmt.Errorf("runtime profile socket %s conflicts with inbound %q", runtimeBindingLabel(binding), previous.Tag)

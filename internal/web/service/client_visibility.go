@@ -56,24 +56,6 @@ func IsHiddenClientEmail(email string) bool {
 	return false
 }
 
-func filterVisibleClientRows(rows []ClientWithAttachments) []ClientWithAttachments {
-	if len(rows) == 0 || len(hiddenClientEmailRules()) == 0 {
-		return rows
-	}
-
-	visible := make([]ClientWithAttachments, 0, len(rows))
-
-	for _, row := range rows {
-		if IsHiddenClientEmail(row.Email) {
-			continue
-		}
-
-		visible = append(visible, row)
-	}
-
-	return visible
-}
-
 func FilterVisibleClientEmails(emails []string) []string {
 	if len(emails) == 0 || len(hiddenClientEmailRules()) == 0 {
 		return emails

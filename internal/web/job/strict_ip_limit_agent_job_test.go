@@ -87,5 +87,4 @@ func TestStrictIPLimitAgentRootRoundTrip(t *testing.T) {
 	if !released.Allowed || !released.Released {
 		t.Fatalf("root release = %#v", released)
 	}
-
 }

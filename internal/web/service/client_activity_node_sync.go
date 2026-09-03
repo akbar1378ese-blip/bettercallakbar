@@ -442,7 +442,7 @@ func (s *ClientActivityService) MergeNodeActivity(
 
 func clientActivityRemoteUpsertClause(tx *gorm.DB) clause.OnConflict {
 	prefix := ""
-	if tx != nil && tx.Dialector != nil && tx.Dialector.Name() == "postgres" {
+	if tx != nil && tx.Name() == "postgres" {
 		prefix = "client_activity_remote_destinations."
 	}
 

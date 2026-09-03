@@ -1010,10 +1010,10 @@ func validateClientAgainstRoleLimits(limits adminRoleClientLimits, client model.
 			return common.NewError(clientDataLimitRequiredMessage(minBytes, hasMinBytes, maxBytes, hasMaxBytes))
 		}
 		if hasMinBytes && client.TotalGB < minBytes {
-			return common.NewErrorf("حجم ترافیک انتخاب‌شده برای این کلاینت کمتر از حداقل مجاز است. حداقل حجم مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitBytes(minBytes), formatRoleLimitBytes(client.TotalGB))
+			return common.NewErrorf("حجم ترافیک انتخاب\u200cشده برای این کلاینت کمتر از حداقل مجاز است. حداقل حجم مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitBytes(minBytes), formatRoleLimitBytes(client.TotalGB))
 		}
 		if hasMaxBytes && client.TotalGB > maxBytes {
-			return common.NewErrorf("حجم ترافیک انتخاب‌شده برای این کلاینت بیشتر از حداکثر مجاز است. حداکثر حجم مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitBytes(maxBytes), formatRoleLimitBytes(client.TotalGB))
+			return common.NewErrorf("حجم ترافیک انتخاب\u200cشده برای این کلاینت بیشتر از حداکثر مجاز است. حداکثر حجم مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitBytes(maxBytes), formatRoleLimitBytes(client.TotalGB))
 		}
 	}
 
@@ -1026,10 +1026,10 @@ func validateClientAgainstRoleLimits(limits adminRoleClientLimits, client model.
 			return common.NewError(clientExpiryRequiredMessage(minDays, hasMinDays, maxDays, hasMaxDays))
 		}
 		if hasMinDays && durationMillis < minDays*roleLimitDayMillis {
-			return common.NewErrorf("مدت اعتبار انتخاب‌شده برای این کلاینت کمتر از حداقل مجاز است. حداقل مدت مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitDays(minDays), formatRoleLimitDurationMillis(durationMillis))
+			return common.NewErrorf("مدت اعتبار انتخاب\u200cشده برای این کلاینت کمتر از حداقل مجاز است. حداقل مدت مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitDays(minDays), formatRoleLimitDurationMillis(durationMillis))
 		}
 		if hasMaxDays && durationMillis > maxDays*roleLimitDayMillis {
-			return common.NewErrorf("مدت اعتبار انتخاب‌شده برای این کلاینت بیشتر از حداکثر مجاز است. حداکثر مدت مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitDays(maxDays), formatRoleLimitDurationMillis(durationMillis))
+			return common.NewErrorf("مدت اعتبار انتخاب\u200cشده برای این کلاینت بیشتر از حداکثر مجاز است. حداکثر مدت مجاز برای این حساب %s است، اما مقدار واردشده %s است.", formatRoleLimitDays(maxDays), formatRoleLimitDurationMillis(durationMillis))
 		}
 	}
 

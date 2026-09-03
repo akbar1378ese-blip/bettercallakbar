@@ -717,6 +717,7 @@ func (s *SettingService) GetSubClientImportFormat() (string, error) {
 func (s *SettingService) GetRemarkModel() (string, error) {
 	return s.getString("remarkModel")
 }
+
 func (s *SettingService) GetSubTitle() (string, error) {
 	return s.getString("subTitle")
 }

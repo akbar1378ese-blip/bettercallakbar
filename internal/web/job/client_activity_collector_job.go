@@ -588,11 +588,9 @@ func (c *ClientActivityCollector) persist(
 	affectedClientIDs := make(map[int]struct{})
 
 	for _, event := range aggregated {
-		setting, settingFound :=
-			settingsByClient[event.ClientID]
+		setting, settingFound := settingsByClient[event.ClientID]
 
-		client, clientFound :=
-			clientsByID[event.ClientID]
+		client, clientFound := clientsByID[event.ClientID]
 
 		emailMatches := client.Email == event.Email
 		if !emailMatches {
@@ -654,7 +652,6 @@ func (c *ClientActivityCollector) persist(
 			err := tx.Clauses(
 				clientActivityUpsertClause(tx),
 			).Create(&batch).Error
-
 			if err != nil {
 				return err
 			}
@@ -680,8 +677,7 @@ func clientActivityUpsertClause(
 	// ON CONFLICT. Qualifying the target columns avoids dialect ambiguity.
 	// SQLite keeps the original unqualified target-column syntax.
 	if tx != nil &&
-		tx.Dialector != nil &&
-		tx.Dialector.Name() == "postgres" {
+		tx.Name() == "postgres" {
 		targetPrefix = "client_activity_destinations."
 	}
 

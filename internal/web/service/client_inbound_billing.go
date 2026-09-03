@@ -3,8 +3,6 @@ package service
 import (
 	"fmt"
 	"math"
-	"regexp"
-	"strconv"
 	"strings"
 	"time"
 
@@ -19,8 +17,6 @@ import (
 
 const clientInboundStatEmailPrefix = model.ClientInboundStatEmailPrefix
 
-var clientInboundStatEmailRe = regexp.MustCompile(`^hmstat_([0-9]+)_([a-z2-7]{16})$`)
-
 // clientInboundStatEmail returns the runtime-only Xray stats identity for a
 // logical client attached to one inbound.
 //
@@ -30,23 +26,6 @@ var clientInboundStatEmailRe = regexp.MustCompile(`^hmstat_([0-9]+)_([a-z2-7]{16
 // so a deterministic privacy-safe hash is enough for runtime attribution.
 func clientInboundStatEmail(logicalEmail string, inboundID int) string {
 	return model.ClientInboundStatEmail(logicalEmail, inboundID)
-}
-
-// parseClientInboundStatEmail resolves the inbound id from a bettercallakbar runtime
-// stat email. The logical client is resolved through the stat_email mapping table;
-// this parser intentionally does not expose or derive the human-facing email.
-func parseClientInboundStatEmail(email string) (clientID int, inboundID int, ok bool) {
-	m := clientInboundStatEmailRe.FindStringSubmatch(email)
-	if len(m) != 3 {
-		return 0, 0, false
-	}
-
-	iid, err := strconv.Atoi(m[1])
-	if err != nil || iid <= 0 {
-		return 0, 0, false
-	}
-
-	return 0, iid, true
 }
 
 func isClientInboundStatEmail(email string) bool {
@@ -660,28 +639,6 @@ func resetClientInboundTrafficByEmail(tx *gorm.DB, email string) error {
 			"last_online":   0,
 			"updated_at":    time.Now().UnixMilli(),
 		}).Error
-}
-
-func resetClientInboundTrafficByEmails(tx *gorm.DB, emails []string) error {
-	uniq := uniqueNonEmptyStrings(emails)
-	if tx == nil || len(uniq) == 0 {
-		return nil
-	}
-	for _, batch := range chunkStrings(uniq, sqlInChunk) {
-		if err := tx.Model(&model.ClientInboundTraffic{}).
-			Where("email IN ?", batch).
-			Updates(map[string]any{
-				"actual_up":     0,
-				"actual_down":   0,
-				"billable_up":   0,
-				"billable_down": 0,
-				"last_online":   0,
-				"updated_at":    time.Now().UnixMilli(),
-			}).Error; err != nil {
-			return err
-		}
-	}
-	return nil
 }
 
 func resetClientInboundTrafficByInbound(tx *gorm.DB, inboundID int) error {

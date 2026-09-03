@@ -1107,10 +1107,6 @@ func (s *ClientService) bulkDelInboundClients(
 				}
 			}
 		}
-	} else {
-		// BulkDelete already completed one fail-closed full-delete RPC per node
-		// before entering this per-inbound settings update. Dispatching here again
-		// duplicates the destructive operation and inflates one batch into M calls.
 	}
 
 	// Serialize against the traffic poll to avoid the cross-transaction

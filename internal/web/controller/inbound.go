@@ -70,7 +70,6 @@ func (a *InboundController) requireVisibleInbound(c *gin.Context, id int) bool {
 
 // initRouter initializes the routes for inbound-related operations.
 func (a *InboundController) initRouter(g *gin.RouterGroup) {
-
 	g.GET("/list", requirePanelPermission("inbounds", "view"), a.getInbounds)
 	g.GET("/list/slim", requirePanelPermission("inbounds", "view"), a.getInboundsSlim)
 	g.GET("/options", requirePanelPermission("inbounds", "viewSimple"), a.getInboundOptions)

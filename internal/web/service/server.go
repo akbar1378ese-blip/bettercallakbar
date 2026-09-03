@@ -43,6 +43,8 @@ import (
 	"github.com/shirou/gopsutil/v4/net"
 )
 
+var _ = (*ServerService).downloadXRay
+
 // ProcessState represents the current state of a system process.
 type ProcessState string
 

@@ -81,8 +81,7 @@ func (s *InboundService) AddTraffic(
 	if err == nil {
 		adminNeedRestart,
 			adminClientsDisabled,
-			adminErr :=
-			s.SyncAndEnforceAdminUsageLimits()
+			adminErr := s.SyncAndEnforceAdminUsageLimits()
 
 		if adminErr != nil {
 			logger.Warning(
@@ -90,11 +89,9 @@ func (s *InboundService) AddTraffic(
 				adminErr,
 			)
 		} else {
-			needRestart =
-				needRestart || adminNeedRestart
+			needRestart = needRestart || adminNeedRestart
 
-			clientsDisabled =
-				clientsDisabled || adminClientsDisabled
+			clientsDisabled = clientsDisabled || adminClientsDisabled
 		}
 	}
 
@@ -132,8 +129,7 @@ func (s *InboundService) addTrafficLocked(
 
 			needRestartRenew,
 				renewCount,
-				renewErr :=
-				s.autoRenewClients(tx)
+				renewErr := s.autoRenewClients(tx)
 
 			if renewErr != nil {
 				runtimeMayNeedRepair = true
@@ -156,8 +152,7 @@ func (s *InboundService) addTrafficLocked(
 			needRestartDisable,
 				disabledCount,
 				nodeIDs,
-				disableErr :=
-				s.disableInvalidClients(tx)
+				disableErr := s.disableInvalidClients(tx)
 
 			mutatedRemoteNodeIDs = nodeIDs
 
@@ -186,8 +181,7 @@ func (s *InboundService) addTrafficLocked(
 
 			needRestartInbound,
 				inboundDisabledCount,
-				inboundErr :=
-				s.disableInvalidInbounds(tx)
+				inboundErr := s.disableInvalidInbounds(tx)
 
 			if inboundErr != nil {
 				runtimeMayNeedRepair = true
@@ -207,16 +201,14 @@ func (s *InboundService) addTrafficLocked(
 				runtimeMayNeedRepair = true
 			}
 
-			needRestart =
-				needRestartRenew ||
-					needRestartDisable ||
-					needRestartInbound
+			needRestart = needRestartRenew ||
+				needRestartDisable ||
+				needRestartInbound
 
 			clientsDisabled = disabledCount > 0
 			return nil
 		},
 	)
-
 	if err != nil {
 		return runtimeMayNeedRepair,
 			false,

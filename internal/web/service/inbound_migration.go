@@ -61,7 +61,6 @@ func (s *InboundService) MigrationRepairClientInboundTrafficMappings() {
 				inboundID,
 			)
 		})
-
 		if err != nil {
 			logger.Warningf(
 				"MigrationRepairClientInboundTrafficMappings: inbound %d failed: %v",

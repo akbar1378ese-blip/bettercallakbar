@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"math"
+	"net/http"
 	"net/http/httptest"
 	"testing"
 
@@ -14,7 +15,7 @@ import (
 func customPanelDecodeContext(body string) *gin.Context {
 	response := httptest.NewRecorder()
 	context, _ := gin.CreateTestContext(response)
-	context.Request = httptest.NewRequest("POST", "/api", bytes.NewBufferString(body))
+	context.Request = httptest.NewRequest(http.MethodPost, "/api", bytes.NewBufferString(body))
 	context.Request.Header.Set("Content-Type", "application/json")
 	return context
 }

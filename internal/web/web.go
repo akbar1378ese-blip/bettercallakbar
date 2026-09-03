@@ -308,14 +308,14 @@ func (s *Server) startTask(restartXray bool) {
 	// immediately and retry periodically if socket setup initially fails.
 	clientActivityCollectorJob := job.NewClientActivityCollectorJob()
 	clientActivityCollectorJob.Run()
-	s.cron.AddJob("@every 10s", clientActivityCollectorJob)
+	_, _ = s.cron.AddJob("@every 10s", clientActivityCollectorJob)
 
 	// Start the synchronous Strict-B lease agent before Xray. Core talks only
 	// to this local Unix socket; the agent resolves locally on the root or relays
 	// synchronously through the parent chain. Retry socket setup periodically.
 	strictIPLimitAgentJob := job.NewStrictIPLimitAgentJob()
 	strictIPLimitAgentJob.Run()
-	s.cron.AddJob("@every 10s", strictIPLimitAgentJob)
+	_, _ = s.cron.AddJob("@every 10s", strictIPLimitAgentJob)
 
 	// Generate Core-level client limits before Xray starts, then keep the
 	// files synchronized while the panel is running.
@@ -367,7 +367,7 @@ func (s *Server) startTask(restartXray bool) {
 	// Xray watches these files and applies limit changes without a restart.
 	_, _ = s.cron.AddJob("@every 2s", clientIPLimitsJob)
 	_, _ = s.cron.AddJob("@every 2s", clientSpeedLimitsJob)
-	_, _ = s.cron.AddJob("@every 2s", clientActivityMonitoringJob)
+	_, _ = s.cron.AddJob("@every 10s", strictIPLimitAgentJob)
 
 	// Upstream client IP scan job kept for compatibility.
 	_, _ = s.cron.AddJob(cadenceClientIPScan, job.NewCheckClientIpJob())
@@ -391,7 +391,7 @@ func (s *Server) startTask(restartXray bool) {
 	_, _ = s.cron.AddJob("@daily", job.NewPeriodicTrafficResetJob("daily"))
 	// Run once a week, midnight between Sat/Sun
 	_, _ = s.cron.AddJob("@weekly", job.NewPeriodicTrafficResetJob("weekly"))
-	// Run once a month, midnight, first of month
+	_, _ = s.cron.AddJob(cadenceClientPresence, clientPresenceJob)
 	_, _ = s.cron.AddJob("@monthly", job.NewPeriodicTrafficResetJob("monthly"))
 
 	// LDAP sync scheduling

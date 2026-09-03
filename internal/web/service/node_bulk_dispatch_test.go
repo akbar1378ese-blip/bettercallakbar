@@ -27,8 +27,10 @@ type fakeNodeRuntime struct {
 	deleteClientErr   error
 }
 
-var _ runtime.Runtime = (*fakeNodeRuntime)(nil)
-var _ remoteClientDeleter = (*fakeNodeRuntime)(nil)
+var (
+	_ runtime.Runtime     = (*fakeNodeRuntime)(nil)
+	_ remoteClientDeleter = (*fakeNodeRuntime)(nil)
+)
 
 func (f *fakeNodeRuntime) Name() string { return "fake-node" }
 
@@ -76,6 +78,7 @@ func (f *fakeNodeRuntime) DeleteClientRecords(_ context.Context, emails []string
 	f.deleteClient.Add(int32(len(emails)))
 	return f.deleteClientErr
 }
+
 func (f *fakeNodeRuntime) AddClient(context.Context, *model.Inbound, model.Client) error {
 	f.addClient.Add(1)
 	return nil

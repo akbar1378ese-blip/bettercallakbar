@@ -27,6 +27,7 @@ func (*orphanDeleteRuntime) DelInbound(context.Context, *model.Inbound) error { 
 func (*orphanDeleteRuntime) UpdateInbound(context.Context, *model.Inbound, *model.Inbound) error {
 	return nil
 }
+
 func (*orphanDeleteRuntime) AddUser(context.Context, *model.Inbound, map[string]any) error {
 	return nil
 }
@@ -49,6 +50,7 @@ func (f *orphanDeleteRuntime) DeleteClientRecord(context.Context, string, bool) 
 	f.deleted++
 	return nil
 }
+
 func (f *orphanDeleteRuntime) DeleteClientRecords(_ context.Context, emails []string, _ bool) error {
 	f.deleted += len(emails)
 	return nil

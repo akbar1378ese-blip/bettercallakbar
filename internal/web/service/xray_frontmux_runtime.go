@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -97,7 +98,7 @@ func waitForFrontMuxBackends(plan frontmux.Plan, timeout time.Duration) error {
 	for len(pending) > 0 {
 		next := pending[:0]
 		for _, backend := range pending {
-			conn, err := net.DialTimeout("tcp", backend, 250*time.Millisecond)
+			conn, err := (&net.Dialer{Timeout: 250 * time.Millisecond}).DialContext(context.Background(), "tcp", backend)
 			if err != nil {
 				next = append(next, backend)
 				continue

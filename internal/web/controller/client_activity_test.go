@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+
 	"github.com/mhsanaei/3x-ui/v3/internal/database"
 	"github.com/mhsanaei/3x-ui/v3/internal/database/model"
 )
@@ -245,7 +246,6 @@ func TestClientActivityControlAPI(t *testing.T) {
 			finalStatus,
 		)
 	}
-
 }
 
 func TestClientActivityRoutesRegistered(t *testing.T) {
