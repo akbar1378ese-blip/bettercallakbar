@@ -8,6 +8,9 @@ plain='\033[0m'
 
 xui_folder="${XUI_MAIN_FOLDER:=/usr/local/x-ui}"
 xui_service="${XUI_SERVICE:=/etc/systemd/system}"
+XUI_REPOSITORY="akbar1378ese-blip/bettercallakbar"
+XUI_RELEASE_BASE="https://github.com/${XUI_REPOSITORY}/releases/download"
+XUI_RAW_BASE="https://raw.githubusercontent.com/${XUI_REPOSITORY}/main"
 
 # Don't edit this config
 b_source="${BASH_SOURCE[0]}"
@@ -960,22 +963,23 @@ update_x-ui() {
         tag_version="${XUI_UPDATE_TAG}"
         echo -e "${green}Using update tag: ${tag_version}${plain}"
     else
-        tag_version=$(${curl_bin} -Ls "https://api.github.com/repos/akbar1378ese-blip/bettercallakbar/releases/latest" 2> /dev/null | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+        tag_version=$(${curl_bin} -fsSL "https://api.github.com/repos/${XUI_REPOSITORY}/releases/latest" 2> /dev/null | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | head -n 1)
         if [[ ! -n "$tag_version" ]]; then
             _fail "ERROR: Failed to fetch bettercallakbar version, it may be due to GitHub API restrictions, please try it later"
         fi
     fi
     echo -e "Got x-ui latest version: ${tag_version}, beginning the installation..."
-    ${curl_bin} -fLRo ${xui_folder}-linux-$(arch).tar.gz https://github.com/akbar1378ese-blip/bettercallakbar/releases/download/${tag_version}/x-ui-linux-$(arch).tar.gz 2> /dev/null
+    archive_file="${xui_folder}-linux-$(arch).tar.gz"
+    ${curl_bin} -fLSo "${archive_file}" "${XUI_RELEASE_BASE}/${tag_version}/x-ui-linux-$(arch).tar.gz" 2> /dev/null
     if [[ $? -ne 0 ]]; then
         _fail "ERROR: Failed to download x-ui, please be sure that your server can access GitHub"
     fi
-    if [[ ! -s ${xui_folder}-linux-$(arch).tar.gz ]]; then
-        rm ${xui_folder}-linux-$(arch).tar.gz -f > /dev/null 2>&1
+    if [[ ! -s "${archive_file}" ]]; then
+        rm -f "${archive_file}" > /dev/null 2>&1
         _fail "ERROR: Downloaded x-ui release archive is empty, please be sure that your server can access GitHub"
     fi
-    if ! tar tzf "${xui_folder}-linux-$(arch).tar.gz" 2> /dev/null | grep -Fxq 'x-ui/x-ui'; then
-        rm -f "${xui_folder}-linux-$(arch).tar.gz" > /dev/null 2>&1
+    if ! tar tzf "${archive_file}" 2> /dev/null | grep -Fxq 'x-ui/x-ui'; then
+        rm -f "${archive_file}" > /dev/null 2>&1
         _fail "ERROR: Downloaded x-ui release archive is invalid: x-ui/x-ui is missing"
     fi
 
@@ -988,7 +992,7 @@ update_x-ui() {
                 echo -e "${green}Removing old service unit version...${plain}"
                 rm -f /etc/init.d/x-ui > /dev/null 2>&1
             else
-                rm x-ui-linux-$(arch).tar.gz -f > /dev/null 2>&1
+                rm -f "${archive_file}" > /dev/null 2>&1
                 _fail "ERROR: x-ui service unit not installed."
             fi
         else
@@ -999,7 +1003,7 @@ update_x-ui() {
                 rm ${xui_service}/x-ui.service -f > /dev/null 2>&1
                 systemctl daemon-reload > /dev/null 2>&1
             else
-                rm x-ui-linux-$(arch).tar.gz -f > /dev/null 2>&1
+                rm -f "${archive_file}" > /dev/null 2>&1
                 _fail "ERROR: x-ui systemd unit not installed."
             fi
         fi
@@ -1009,31 +1013,25 @@ update_x-ui() {
         # The new panel respawns a clean mtg per inbound on next start.
         pkill -f 'mtg-linux-[^ ]* run ' > /dev/null 2>&1 || true
         echo -e "${green}Removing old x-ui version...${plain}"
-        rm ${xui_folder} -f > /dev/null 2>&1
-        rm ${xui_folder}/x-ui.service -f > /dev/null 2>&1
-        rm ${xui_folder}/x-ui.service.debian -f > /dev/null 2>&1
-        rm ${xui_folder}/x-ui.service.arch -f > /dev/null 2>&1
-        rm ${xui_folder}/x-ui.service.rhel -f > /dev/null 2>&1
-        rm ${xui_folder}/x-ui -f > /dev/null 2>&1
-        rm ${xui_folder}/x-ui.sh -f > /dev/null 2>&1
+        rm -rf "${xui_folder}" > /dev/null 2>&1
         echo -e "${green}Removing old xray version...${plain}"
-        rm ${xui_folder}/bin/xray-linux-amd64 -f > /dev/null 2>&1
-        rm ${xui_folder}/bin/xray-linux-arm -f > /dev/null 2>&1
+        rm -f "${xui_folder}/bin/xray-linux-amd64" > /dev/null 2>&1
+        rm -f "${xui_folder}/bin/xray-linux-arm" > /dev/null 2>&1
         echo -e "${green}Removing old README and LICENSE file...${plain}"
-        rm ${xui_folder}/bin/README.md -f > /dev/null 2>&1
-        rm ${xui_folder}/bin/LICENSE -f > /dev/null 2>&1
+        rm -f "${xui_folder}/bin/README.md" > /dev/null 2>&1
+        rm -f "${xui_folder}/bin/LICENSE" > /dev/null 2>&1
     else
         rm x-ui-linux-$(arch).tar.gz -f > /dev/null 2>&1
         _fail "ERROR: x-ui not installed."
     fi
 
     echo -e "${green}Installing new x-ui version...${plain}"
-    tar zxvf x-ui-linux-$(arch).tar.gz > /dev/null 2>&1
+    tar zxvf "${archive_file}" > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
-        rm x-ui-linux-$(arch).tar.gz -f > /dev/null 2>&1
+        rm -f "${archive_file}" > /dev/null 2>&1
         _fail "ERROR: Failed to extract the x-ui release archive -- the previous installation has already been removed, so the panel will not start until this is fixed; try running the update again"
     fi
-    rm x-ui-linux-$(arch).tar.gz -f > /dev/null 2>&1
+    rm -f "${archive_file}" > /dev/null 2>&1
     cd x-ui > /dev/null 2>&1
     if [[ $? -ne 0 || ! -s x-ui ]]; then
         _fail "ERROR: Extracted x-ui archive is missing the x-ui binary -- the previous installation has already been removed, so the panel will not start until this is fixed; try running the update again"
@@ -1081,7 +1079,7 @@ update_x-ui() {
     echo -e "${green}Downloading and installing x-ui.sh script...${plain}"
     local xui_script_temp="/usr/bin/x-ui-temp.$$"
     rm -f "${xui_script_temp}"
-    ${curl_bin} -fLRo "${xui_script_temp}" https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/x-ui.sh > /dev/null 2>&1
+    ${curl_bin} -fLSo "${xui_script_temp}" "${XUI_RAW_BASE}/x-ui.sh" > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
         rm -f "${xui_script_temp}"
         _fail "ERROR: Failed to download x-ui.sh script, please be sure that your server can access GitHub"
@@ -1112,7 +1110,7 @@ update_x-ui() {
         echo -e "${green}Downloading and installing startup unit x-ui.rc...${plain}"
         xui_rc_temp="/etc/init.d/x-ui.tmp.$$"
         rm -f "${xui_rc_temp}"
-        ${curl_bin} -fLRo "${xui_rc_temp}" https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/x-ui.rc > /dev/null 2>&1
+        ${curl_bin} -fLSo "${xui_rc_temp}" "${XUI_RAW_BASE}/x-ui.rc" > /dev/null 2>&1
         if [[ $? -ne 0 ]]; then
             rm -f "${xui_rc_temp}"
             _fail "ERROR: Failed to download startup unit x-ui.rc, please be sure that your server can access GitHub"
@@ -1171,13 +1169,13 @@ update_x-ui() {
                 echo -e "${yellow}Service files not found in tar.gz, downloading from GitHub...${plain}"
                 case "${release}" in
                     ubuntu | debian | armbian)
-                        service_unit_url="https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/x-ui.service.debian"
+                        service_unit_url="${XUI_RAW_BASE}/x-ui.service.debian"
                         ;;
                     arch | manjaro | parch)
-                        service_unit_url="https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/x-ui.service.arch"
+                        service_unit_url="${XUI_RAW_BASE}/x-ui.service.arch"
                         ;;
                     *)
-                        service_unit_url="https://raw.githubusercontent.com/akbar1378ese-blip/bettercallakbar/main/x-ui.service.rhel"
+                        service_unit_url="${XUI_RAW_BASE}/x-ui.service.rhel"
                         ;;
                 esac
 
@@ -1202,6 +1200,7 @@ update_x-ui() {
         expected_xui_version=$(tr -d '[:space:]' < "${xui_folder}/RELEASE_VERSION")
     fi
     [[ -n "${expected_xui_version}" ]] || expected_xui_version="${tag_version#v}"
+    expected_xui_version="${expected_xui_version#v}"
     installed_xui_version="${installed_xui_version#v}"
     if [[ -z "${installed_xui_version}" || "${installed_xui_version}" != "${expected_xui_version}" ]]; then
         _fail "ERROR: Installed bettercallakbar version verification failed. expected=${expected_xui_version}, got=${installed_xui_version:-unknown}"
