@@ -43,9 +43,13 @@ func (*orphanDeleteRuntime) RestartXray(context.Context) error { return nil }
 func (*orphanDeleteRuntime) ResetClientTraffic(context.Context, *model.Inbound, string) error {
 	return nil
 }
+
 func (*orphanDeleteRuntime) ResetInboundTraffic(context.Context, *model.Inbound) error { return nil }
-func (*orphanDeleteRuntime) ResetAllTraffics(context.Context) error                    { return nil }
-func (*orphanDeleteRuntime) DeleteClient(context.Context, string) error                { return nil }
+
+func (*orphanDeleteRuntime) ResetAllTraffics(context.Context) error { return nil }
+
+func (*orphanDeleteRuntime) DeleteClient(context.Context, string) error { return nil }
+
 func (f *orphanDeleteRuntime) DeleteClientRecord(context.Context, string, bool) error {
 	f.deleted++
 	return nil

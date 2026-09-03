@@ -445,7 +445,9 @@ func (a *SUBController) serveSubPage(c *gin.Context, basePath string, page PageD
 		themeDir = defaultbettercallakbarSubThemeDir
 	case sanaeiDefaultSubThemeDir:
 		themeDir = ""
-	default:
+	}
+
+	if themeDir != "" {
 		if tmpl, err := a.loadSubTemplate(themeDir); err != nil {
 			logger.Error("sub: custom template parse failed, using default page:", err)
 		} else if tmpl == nil {
