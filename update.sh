@@ -983,6 +983,24 @@ update_x-ui() {
         _fail "ERROR: Downloaded x-ui release archive is invalid: x-ui/x-ui is missing"
     fi
 
+    # Never replace a working installation with an archive whose binary still
+    # reports an older version. The release tag and the embedded binary version
+    # must agree before the current installation is stopped or removed.
+    archive_check_dir="${cur_dir}/.x-ui-update-check.$$"
+    rm -rf "${archive_check_dir}" > /dev/null 2>&1
+    if ! mkdir -p "${archive_check_dir}" || ! tar zxf "${archive_file}" -C "${archive_check_dir}" > /dev/null 2>&1; then
+        rm -rf "${archive_check_dir}" "${archive_file}" > /dev/null 2>&1
+        _fail "ERROR: Failed to inspect the downloaded x-ui release archive"
+    fi
+    archive_version=$("${archive_check_dir}/x-ui/x-ui" -v 2> /dev/null | tr -d '[:space:]' || true)
+    expected_archive_version="${tag_version#v}"
+    archive_version="${archive_version#v}"
+    if [[ -z "${archive_version}" || "${archive_version}" != "${expected_archive_version}" ]]; then
+        rm -rf "${archive_check_dir}" "${archive_file}" > /dev/null 2>&1
+        _fail "ERROR: Release ${tag_version} is invalid: archive binary reports ${archive_version:-unknown}, expected ${expected_archive_version}"
+    fi
+    rm -rf "${archive_check_dir}" > /dev/null 2>&1
+
     if [[ -e ${xui_folder}/ ]]; then
         echo -e "${green}Stopping x-ui...${plain}"
         if [[ $release == "alpine" ]]; then
