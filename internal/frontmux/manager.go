@@ -106,7 +106,7 @@ func (m *Manager) Start(plan Plan) error {
 	}
 
 	for _, group := range canonical.Groups {
-		listener, err := net.Listen("tcp", listenerKey(group.Listen, group.Port))
+		listener, err := (&net.ListenConfig{}).Listen(ctx, "tcp", listenerKey(group.Listen, group.Port))
 		if err != nil {
 			cancel()
 			for _, opened := range running.listeners {

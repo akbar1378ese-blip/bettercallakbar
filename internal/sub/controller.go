@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/mhsanaei/3x-ui/v3/internal/database"
 	"html/template"
 	"math"
 	"net/http"
@@ -16,6 +15,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/mhsanaei/3x-ui/v3/internal/database"
 
 	"github.com/gin-gonic/gin"
 
@@ -439,13 +440,12 @@ func (a *SUBController) serveSubPage(c *gin.Context, basePath string, page PageD
 
 	themeDir, _ := a.settingService.GetSubThemeDir()
 	themeDir = strings.TrimSpace(themeDir)
-	if themeDir == "" {
+	switch themeDir {
+	case "":
 		themeDir = defaultbettercallakbarSubThemeDir
-	} else if themeDir == sanaeiDefaultSubThemeDir {
+	case sanaeiDefaultSubThemeDir:
 		themeDir = ""
-	}
-
-	if themeDir != "" {
+	default:
 		if tmpl, err := a.loadSubTemplate(themeDir); err != nil {
 			logger.Error("sub: custom template parse failed, using default page:", err)
 		} else if tmpl == nil {

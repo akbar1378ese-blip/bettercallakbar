@@ -38,6 +38,10 @@ linters:
       - linters:
           - staticcheck
         text: "ST1005:"
+      - path: tools/openapigen/.*
+        linters:
+          - staticcheck
+        text: "SA1019:"
 
 formatters:
   enable:

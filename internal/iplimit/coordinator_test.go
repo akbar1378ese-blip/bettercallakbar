@@ -136,7 +136,8 @@ func TestCoordinatorConcurrentDifferentIPRaceGrantsExactlyOne(t *testing.T) {
 			c      *Coordinator
 			ip     string
 			holder string
-		}) {
+		},
+		) {
 			defer wg.Done()
 			<-start
 			d, err := tc.c.Acquire(context.Background(), testClientGuid, tc.ip, tc.holder)
